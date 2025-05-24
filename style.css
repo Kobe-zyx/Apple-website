@@ -1,7 +1,7 @@
 /* style.css */
 
 /* 基础样式和字体 */
-:root {
+:root { 
     /* 亮色模式变量 */
     --primary-color: #007AFF; /* Apple 蓝色 */
     --text-color: #1D1D1F; /* 深灰色文本 */
