@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>你的名字 - 个人网站</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/feather-icons"></script> 
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <header class="navbar">
@@ -96,13 +96,19 @@
     <section id="contact" class="section">
         <div class="container">
             <h2>联系我</h2>
-            <p>期待与你合作！</p>
-            <form class="contact-form">
-                <input type="text" placeholder="你的名字">
-                <input type="email" placeholder="你的邮箱">
-                <textarea placeholder="你的消息"></textarea>
-                <button type="submit" class="button primary">发送</button>
+            <p>期待与你合作！请填写以下表格，我会尽快回复。</p>
+            <form class="contact-form" action="mailto:kobezyuxuan@gmail.com?subject=来自个人网站的联系&body=姓名：%0D%0A邮箱：%0D%0A消息内容：%0D%0A" method="GET" enctype="text/plain">
+                <input type="text" name="name" placeholder="你的名字" required>
+                <input type="email" name="email" placeholder="你的邮箱" required>
+                <textarea name="message" placeholder="你的消息" required></textarea>
+                <button type="submit" class="button primary">发送邮件</button>
             </form>
+            <p>或者直接通过以下方式联系我：</p>
+            <div class="contact-info">
+                <p><i data-feather="mail"></i> 邮箱: <a href="mailto:kobezyuxuan@gmail.com">kobezyuxuan@gmail.com</a></p>
+                <p><i data-feather="phone"></i> 电话: +86 12345678900 (可选)</p>
+            </div>
+
             <div class="social-links">
                 <a href="https://twitter.com/你的Twitter用户名" target="_blank" rel="noopener noreferrer"><i data-feather="twitter"></i></a>
                 <a href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener noreferrer"><i data-feather="github"></i></a>
