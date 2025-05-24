@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopButton = document.getElementById('back-to-top'); // 回到顶部按钮
     const navbar = document.querySelector('.navbar'); // 导航栏元素 (用于计算偏移量)
 
+    // 获取每日一言的DOM元素
+    const quoteText = document.getElementById('quote-text');
+    const quoteFrom = document.getElementById('quote-from');
+
     // --- 主题切换逻辑 ---
 
     // 1. 从 Local Storage 获取用户之前选择的主题
@@ -94,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (targetElement) {
                     // 获取导航栏的高度，以便在滚动时从目标位置减去，防止内容被导航栏遮挡
-                    const headerOffset = navbar ? navbar.offsetHeight : 0; // 如果导航栏存在则获取其高度，否则为0
+                    // 确保 navbar 元素存在，如果不存在则使用 0
+                    const headerOffset = navbar ? navbar.offsetHeight : 0;
                     
                     // 计算目标元素相对于文档顶部的精确位置
                     const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
@@ -111,4 +116,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // --- 每日一言逻辑 ---
+    async function fetchDailyQuote() {
+        // Hitokoto API: https://developer.hitokoto.cn/
+        // c 参数用于指定句子类型，a=动画，b=漫画，c=游戏，d=小说，e=原创，f=来自网络，g=其他
+        const apiUrl = 'https://v1.hitokoto.cn/?c=a&c=b&c=c&c=d&c=e&c=f&c=g'; 
+        
+        try {
+            const response = await fetch(apiUrl); // 发送网络请求
+            if (!response.ok) { // 检查 HTTP 响应状态码，如果不是 2xx 则抛出错误
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json(); // 解析 JSON 数据
+
+            // 设置句子内容
+            quoteText.textContent = data.hitokoto;
+
+            // 设置来源/作者
+            let fromText = '';
+            if (data.from) { // 如果有来源（from）
+                fromText += `《${data.from}》`;
+            }
+            if (data.from_who) { // 如果有作者（from_who）
+                // 如果fromText已经有内容了，则前面加个分隔符
+                if (fromText) {
+                    fromText += ` · ${data.from_who}`;
+                } else {
+                    fromText += `${data.from_who}`; // 如果没有来源，直接显示作者
+                }
+            }
+            // 如果from_who和from都没有，也可以显示一个默认的 "未知" 或不显示
+            if (!fromText) {
+                fromText = '—— 未知';
+            }
+            quoteFrom.textContent = fromText;
+
+        } catch (error) {
+            console.error('获取每日一言失败:', error);
+            // 如果获取失败，显示一个默认的句子，确保用户体验
+            quoteText.textContent = '生活就像海洋，只有意志坚强的人，才能到达彼岸。';
+            quoteFrom.textContent = '—— 卡尔·马克思';
+        }
+    }
+
+    // 在页面加载完成后调用获取每日一言的函数
+    fetchDailyQuote();
 });
