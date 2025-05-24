@@ -2,24 +2,44 @@
 
 /* 基础样式和字体 */
 :root {
-    --primary-color: #007AFF; /* Apple 蓝色，可根据喜好调整 */
-    --text-color: #1D1D1F;
-    --secondary-text-color: #6E6E73;
-    --background-light: #F5F5F7;
-    --background-dark: #FFFFFF;
-    --border-color: #EAEAEA;
+    /* 亮色模式变量 */
+    --primary-color: #007AFF; /* Apple 蓝色 */
+    --text-color: #1D1D1F; /* 深灰色文本 */
+    --secondary-text-color: #6E6E73; /* 浅灰色文本 */
+    --background-light: #F5F5F7; /* 浅背景色 */
+    --background-dark: #FFFFFF; /* 深背景色 (用于卡片、导航栏) */
+    --border-color: #EAEAEA; /* 边框颜色 */
+    --link-hover-color: #0066CC; /* 链接悬停色 */
+    --shadow-color-light: rgba(0,0,0,0.05); /* 亮模式阴影 */
+    --shadow-color-dark: rgba(0,0,0,0.1); /* 亮模式卡片悬停阴影 */
+
     --spacing-unit: 8px; /* 定义基础间距单位 */
 }
+
+/* 暗色模式变量 */
+body.dark-mode {
+    --primary-color: #0A84FF; /* 暗模式下略亮的蓝色 */
+    --text-color: #F5F5F7; /* 浅灰色文本 */
+    --secondary-text-color: #AAAAAA; /* 更浅的灰色文本 */
+    --background-light: #1C1C1E; /* 深背景色 */
+    --background-dark: #000000; /* 更深的背景色 (用于卡片、导航栏) */
+    --border-color: #303030; /* 暗模式边框颜色 */
+    --link-hover-color: #2F80ED; /* 暗模式链接悬停色 */
+    --shadow-color-light: rgba(0,0,0,0.4); /* 暗模式阴影 */
+    --shadow-color-dark: rgba(0,0,0,0.6); /* 暗模式卡片悬停阴影 */
+}
+
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
+    color: var(--text-color); /* 使用变量 */
     margin: 0;
     padding: 0;
-    background-color: var(--background-light);
+    background-color: var(--background-light); /* 使用变量 */
     -webkit-font-smoothing: antialiased; /* 抗锯齿 */
     scroll-behavior: smooth; /* 平滑滚动 */
+    transition: background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
 .container {
@@ -29,18 +49,18 @@ body {
 }
 
 a {
-    color: var(--primary-color);
+    color: var(--primary-color); /* 使用变量 */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: var(--primary-color);
+    color: var(--link-hover-color); /* 使用变量 */
     opacity: 0.8;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-color);
+    color: var(--text-color); /* 使用变量 */
     margin-bottom: calc(var(--spacing-unit) * 3);
     font-weight: 600; /* Apple 风格偏爱中等粗细 */
 }
@@ -55,12 +75,13 @@ p {
 
 /* 导航栏 */
 .navbar {
-    background-color: var(--background-dark);
-    border-bottom: 1px solid var(--border-color);
+    background-color: var(--background-dark); /* 使用变量 */
+    border-bottom: 1px solid var(--border-color); /* 使用变量 */
     padding: calc(var(--spacing-unit) * 2) 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* 添加过渡效果 */
 }
 
 .navbar .container {
@@ -72,7 +93,7 @@ p {
 .navbar .logo {
     font-weight: 700;
     font-size: 1.5em;
-    color: var(--text-color);
+    color: var(--text-color); /* 使用变量 */
 }
 
 .navbar ul {
@@ -80,6 +101,7 @@ p {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center; /* 确保按钮也对齐 */
 }
 
 .navbar li {
@@ -87,7 +109,7 @@ p {
 }
 
 .navbar a {
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
     font-weight: 500;
     padding: calc(var(--spacing-unit) * 1) 0;
     position: relative;
@@ -98,7 +120,7 @@ p {
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* 使用变量 */
     bottom: -5px;
     left: 0;
     transition: width 0.3s ease;
@@ -107,6 +129,23 @@ p {
 .navbar a:hover::after,
 .navbar a.active::after {
     width: 100%;
+}
+
+/* 黑夜模式切换按钮样式 */
+.theme-toggle-button {
+    background: none;
+    border: none;
+    font-size: 1.5em; /* 调整图标大小 */
+    cursor: pointer;
+    color: var(--secondary-text-color); /* 默认颜色 */
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 0; /* 移除默认内边距 */
+    line-height: 1; /* 确保图标垂直居中 */
+}
+
+.theme-toggle-button:hover {
+    color: var(--primary-color); /* 悬停颜色 */
+    transform: rotate(15deg); /* 简单动画 */
 }
 
 /* 按钮样式 */
@@ -122,23 +161,23 @@ p {
 }
 
 .button.primary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* 使用变量 */
     color: #FFFFFF;
 }
 
 .button.primary:hover {
-    background-color: #0066CC; /* 稍微深一点的蓝色 */
+    background-color: var(--link-hover-color); /* 使用变量 */
     transform: translateY(-2px);
 }
 
 .button.secondary {
     background-color: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    color: var(--primary-color); /* 使用变量 */
+    border: 1px solid var(--primary-color); /* 使用变量 */
 }
 
 .button.secondary:hover {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* 使用变量 */
     color: #FFFFFF;
     transform: translateY(-2px);
 }
@@ -148,19 +187,21 @@ p {
 .section {
     padding: calc(var(--spacing-unit) * 10) 0;
     text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
 .section:nth-of-type(even) {
-    background-color: var(--background-dark);
+    background-color: var(--background-dark); /* 使用变量 */
 }
 
 /* Hero Section */
 .hero-section {
-    background-color: var(--background-dark);
+    background-color: var(--background-dark); /* 使用变量 */
     padding: calc(var(--spacing-unit) * 10) 0 calc(var(--spacing-unit) * 5);
     text-align: center;
     position: relative;
     overflow: hidden; /* 防止图片溢出 */
+    transition: background-color 0.3s ease; /* 添加过渡效果 */
 }
 
 .hero-section h1 {
@@ -174,7 +215,7 @@ p {
 
 .hero-section p {
     font-size: 1.5em;
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
     margin-bottom: calc(var(--spacing-unit) * 4);
     max-width: 600px;
     margin-left: auto;
@@ -187,7 +228,8 @@ p {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: calc(var(--spacing-unit) * 4);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px var(--shadow-color-light); /* 使用变量 */
+    transition: box-shadow 0.3s ease;
 }
 
 .icon-grid {
@@ -210,20 +252,20 @@ p {
     width: 60px;
     height: 60px;
     stroke-width: 1.5; /* 图标线条粗细 */
-    color: var(--text-color);
+    color: var(--text-color); /* 使用变量 */
     margin-bottom: calc(var(--spacing-unit) * 2);
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .icon-item:hover i {
-    color: var(--primary-color);
+    color: var(--primary-color); /* 使用变量 */
     transform: translateY(-5px);
 }
 
 .icon-item span {
     font-weight: 500;
     font-size: 1.1em;
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
 }
 
 /* 作品集 */
@@ -235,17 +277,17 @@ p {
 }
 
 .portfolio-item {
-    background-color: var(--background-dark);
+    background-color: var(--background-dark); /* 使用变量 */
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 20px var(--shadow-color-light); /* 使用变量 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
     text-align: left;
 }
 
 .portfolio-item:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 40px var(--shadow-color-dark); /* 使用变量 */
 }
 
 .portfolio-item img {
@@ -262,7 +304,7 @@ p {
 
 .portfolio-item p {
     padding: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
 }
 
 .portfolio-item .button {
@@ -284,18 +326,18 @@ p {
 .contact-form input,
 .contact-form textarea {
     padding: calc(var(--spacing-unit) * 2);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* 使用变量 */
     border-radius: 8px;
     font-size: 1em;
-    color: var(--text-color);
-    background-color: var(--background-light);
-    transition: border-color 0.3s ease;
+    color: var(--text-color); /* 使用变量 */
+    background-color: var(--background-light); /* 使用变量 */
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--primary-color); /* 使用变量 */
 }
 
 .contact-form textarea {
@@ -321,22 +363,23 @@ p {
     width: 30px;
     height: 30px;
     stroke-width: 2;
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
     transition: color 0.3s ease;
 }
 
 .social-links i:hover {
-    color: var(--primary-color);
+    color: var(--primary-color); /* 使用变量 */
 }
 
 /* 页脚 */
 footer {
-    background-color: var(--background-dark);
+    background-color: var(--background-dark); /* 使用变量 */
     padding: calc(var(--spacing-unit) * 4) 0;
     text-align: center;
-    color: var(--secondary-text-color);
+    color: var(--secondary-text-color); /* 使用变量 */
     font-size: 0.9em;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color); /* 使用变量 */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
 /* 响应式设计 */
