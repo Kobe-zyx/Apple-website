@@ -3,49 +3,57 @@
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
+    const backToTopButton = document.getElementById('back-to-top'); // 获取回到顶部按钮
 
-    // 1. 从 Local Storage 获取主题偏好
+    // --- 主题切换逻辑 ---
     const currentTheme = localStorage.getItem('theme');
-
-    // 2. 检查用户系统偏好 (仅在没有 Local Storage 存储时应用)
     const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    // 根据存储或系统偏好设置初始主题
     if (currentTheme) {
         body.classList.add(currentTheme);
-        // 更新按钮图标
         if (currentTheme === 'dark-mode') {
-            themeToggle.textContent = '☀️'; // 太阳图标
+            themeToggle.textContent = '☀️';
         } else {
-            themeToggle.textContent = '🌙'; // 月亮图标
+            themeToggle.textContent = '🌙';
         }
     } else if (prefersDarkMode) {
         body.classList.add('dark-mode');
         localStorage.setItem('theme', 'dark-mode');
-        themeToggle.textContent = '☀️'; // 太阳图标
+        themeToggle.textContent = '☀️';
     } else {
-        body.classList.remove('dark-mode'); // 确保默认是亮色模式
+        body.classList.remove('dark-mode');
         localStorage.setItem('theme', 'light-mode');
-        themeToggle.textContent = '🌙'; // 月亮图标
+        themeToggle.textContent = '🌙';
     }
 
-    // 3. 监听切换按钮点击事件
     themeToggle.addEventListener('click', () => {
         if (body.classList.contains('dark-mode')) {
             body.classList.remove('dark-mode');
             localStorage.setItem('theme', 'light-mode');
-            themeToggle.textContent = '🌙'; // 切换到月亮图标
+            themeToggle.textContent = '🌙';
         } else {
             body.classList.add('dark-mode');
             localStorage.setItem('theme', 'dark-mode');
-            themeToggle.textContent = '☀️'; // 切换到太阳图标
+            themeToggle.textContent = '☀️';
         }
     });
 
-    // 平滑滚动动画的 CSS 属性已经在 style.css 的 body 元素中设置
-    // scroll-behavior: smooth;
-    // 这里不需要额外的JS代码来处理基本平滑滚动。
-    // 如果是需要更复杂的平滑滚动（例如，考虑到固定导航栏的高度），
-    // 那么需要在这里添加 JavaScript 逻辑来计算滚动位置。
-    // 但对于一般的锚点跳转，CSS 属性已经足够。
+    // --- 回到顶部按钮逻辑 ---
+    // 监听页面滚动事件
+    window.addEventListener('scroll', () => {
+        // 当页面滚动超过视口高度的 1/4 时显示按钮
+        if (window.scrollY > window.innerHeight / 4) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+
+    // 监听回到顶部按钮点击事件
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 使用平滑滚动
+        });
+    });
 });
