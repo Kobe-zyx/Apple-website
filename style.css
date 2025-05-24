@@ -1,7 +1,7 @@
 /* style.css */
 
 /* 基础样式和字体 */
-:root { 
+:root {
     /* 亮色模式变量 */
     --primary-color: #007AFF; /* Apple 蓝色 */
     --text-color: #1D1D1F; /* 深灰色文本 */
@@ -12,6 +12,8 @@
     --link-hover-color: #0066CC; /* 链接悬停色 */
     --shadow-color-light: rgba(0,0,0,0.05); /* 亮模式阴影 */
     --shadow-color-dark: rgba(0,0,0,0.1); /* 亮模式卡片悬停阴影 */
+    --button-back-color: #FFFFFF; /* 回到顶部按钮背景色 */
+    --button-icon-color: var(--secondary-text-color); /* 回到顶部按钮图标色 */
 
     --spacing-unit: 8px; /* 定义基础间距单位 */
 }
@@ -27,6 +29,8 @@ body.dark-mode {
     --link-hover-color: #2F80ED; /* 暗模式链接悬停色 */
     --shadow-color-light: rgba(0,0,0,0.4); /* 暗模式阴影 */
     --shadow-color-dark: rgba(0,0,0,0.6); /* 暗模式卡片悬停阴影 */
+    --button-back-color: #1C1C1E; /* 暗模式回到顶部按钮背景色 */
+    --button-icon-color: #AAAAAA; /* 暗模式回到顶部按钮图标色 */
 }
 
 
@@ -382,6 +386,48 @@ footer {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: calc(var(--spacing-unit) * 4); /* 距离底部 */
+    right: calc(var(--spacing-unit) * 4); /* 距离右侧 */
+    background-color: var(--button-back-color); /* 使用变量 */
+    color: var(--button-icon-color); /* 使用变量 */
+    border: 1px solid var(--border-color); /* 使用变量 */
+    border-radius: 50%; /* 圆形 */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px var(--shadow-color-light); /* 使用变量 */
+    opacity: 0; /* 默认隐藏 */
+    visibility: hidden; /* 默认隐藏 */
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 999; /* 确保在其他元素之上 */
+}
+
+.back-to-top.show {
+    opacity: 1; /* 显示 */
+    visibility: visible; /* 显示 */
+}
+
+.back-to-top:hover {
+    background-color: var(--primary-color); /* 悬停背景色 */
+    color: #FFFFFF; /* 悬停图标颜色 */
+    border-color: var(--primary-color); /* 悬停边框颜色 */
+    box-shadow: 0 8px 20px var(--shadow-color-dark); /* 悬停阴影 */
+    transform: translateY(-2px); /* 略微上浮 */
+}
+
+.back-to-top i {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     h1 { font-size: 2.8em; }
@@ -413,6 +459,14 @@ footer {
     }
     .portfolio-item {
         margin-bottom: calc(var(--spacing-unit) * 4);
+    }
+
+    /* 手机端调整回到顶部按钮位置 */
+    .back-to-top {
+        bottom: calc(var(--spacing-unit) * 2);
+        right: calc(var(--spacing-unit) * 2);
+        width: 45px;
+        height: 45px;
     }
 }
 
