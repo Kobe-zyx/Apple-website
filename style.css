@@ -323,7 +323,7 @@ p {
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
     max-width: 500px;
-    margin: 0 auto calc(var(--spacing-unit) * 4);
+    margin: 0 auto calc(var(--spacing-unit) * 4); /* 增加下方间距 */
     text-align: left;
 }
 
@@ -352,6 +352,39 @@ p {
 .contact-form button {
     width: auto; /* 按钮宽度自适应 */
     align-self: flex-start; /* 左对齐 */
+}
+
+/* 新增的联系信息样式 */
+.contact-info {
+    margin-top: calc(var(--spacing-unit) * 4);
+    font-size: 1.1em;
+    color: var(--secondary-text-color);
+    text-align: center; /* 居中显示 */
+}
+
+.contact-info p {
+    display: flex; /* 让图标和文本在一行 */
+    align-items: center; /* 垂直居中对齐 */
+    justify-content: center; /* 居中显示 */
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.contact-info i {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+    margin-right: calc(var(--spacing-unit) * 1);
+    color: var(--primary-color); /* 图标颜色 */
+}
+
+.contact-info a {
+    color: var(--secondary-text-color); /* 链接默认颜色 */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: var(--primary-color); /* 链接悬停颜色 */
 }
 
 .social-links {
@@ -467,6 +500,17 @@ footer {
         right: calc(var(--spacing-unit) * 2);
         width: 45px;
         height: 45px;
+    }
+
+    .contact-info p {
+        flex-direction: column; /* 小屏幕下图标和文本垂直排列 */
+        align-items: center; /* 垂直居中 */
+        margin-bottom: calc(var(--spacing-unit) * 2);
+    }
+
+    .contact-info i {
+        margin-right: 0;
+        margin-bottom: calc(var(--spacing-unit) * 0.5); /* 图标下方留一点空间 */
     }
 }
 
