@@ -419,6 +419,26 @@ footer {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
 }
 
+/* 每日一言样式 */
+.daily-quote {
+    margin-bottom: calc(var(--spacing-unit) * 3); /* 与版权信息留出间距 */
+    font-style: italic; /* 斜体 */
+    max-width: 700px; /* 限制宽度 */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 calc(var(--spacing-unit) * 2); /* 左右内边距 */
+}
+
+.daily-quote p {
+    margin-bottom: calc(var(--spacing-unit) * 1); /* 句子和作者之间的间距 */
+    color: var(--secondary-text-color); /* 文本颜色 */
+}
+
+.daily-quote .quote-from {
+    font-size: 0.85em; /* 作者字体小一点 */
+    opacity: 0.8; /* 稍透明 */
+}
+
 /* 回到顶部按钮 */
 .back-to-top {
     position: fixed;
