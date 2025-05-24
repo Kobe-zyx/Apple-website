@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 主题切换逻辑 ---
     const currentTheme = localStorage.getItem('theme');
-    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; 
 
     if (currentTheme) {
         body.classList.add(currentTheme);
