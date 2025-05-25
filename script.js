@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.add('dark-mode');
         themeToggle.textContent = '☀️'; 
     } else {
-        themeToggle.textContent = '🌙';
+        themeToggle.textContent = '🌙'; 
     }
 
     themeToggle.addEventListener('click', function() {
