@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人AI助理项目 - Kobe_zyx</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html#home" class="logo">Kobe_zyx——张宇轩</a>
+            <nav>
+                <ul>
+                    <li><a href="../index.html#home">首页</a></li>
+                    <li><a href="../index.html#about">关于我</a></li>
+                    <li><a href="../index.html#portfolio">作品集</a></li>
+                    <li><a href="../index.html#blog" class="active">博文</a></li>
+                    <li><a href="../index.html#contact">联系我</a></li>
+                    <li><button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">🌙</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
+        <div class="container">
+            <article class="blog-full-post active">
+                <a href="../index.html#blog" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content">
+                    <h2>我的个人AI助理项目：ChatGPT Web应用开发实践</h2>
+                    <p class="post-meta">发布日期: 2023年12月26日</p>
+                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7674.JPG" alt="博文封面 2">
+                    <p>作为一名IT爱好者和学生，我一直对人工智能充满了好奇。最近，我动手开发了一个个人AI助理项目，旨在创建一个基于 ChatGPT API 的 Web 应用，让普通用户也能轻松体验到多模态AI的强大能力。</p>
+                    <p>项目开发过程中，我主要使用了以下技术栈：</p>
+                    <ul>
+                        <li><strong>前端</strong>：HTML, CSS, JavaScript (React / Vue 等框架可以提高效率，但此项目我倾向于原生 JS 以便深入理解)</li>
+                        <li><strong>后端/API 调用</strong>：Node.js (或其他后端语言，负责代理 API 请求和处理数据)</li>
+                        <li><strong>AI 模型</strong>：OpenAI 的 ChatGPT API (包括文本生成、图像识别等)</li>
+                        <li><strong>部署</strong>：Deno Deploy (因为其便捷的部署流程和对 Web 标准的良好支持)</li>
+                    </ul>
+                    <p>开发过程中遇到的挑战主要集中在 API 调用、错误处理、用户界面的响应式设计以及如何优化用户体验。我通过不断查阅文档、调试代码和在社区寻求帮助，逐步克服了这些困难。</p>
+                    <p>这个项目不仅让我对 AI 技术有了更直观的理解，也大大提升了我的 Web 开发技能。未来，我计划继续完善这个项目，例如增加语音输入功能、集成更多 AI 模型，并将其开源，以便更多人可以学习和使用。</p>
+                </div>
+                <a href="../index.html#blog" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="daily-quote">
+                <p id="quote-text"></p>
+                <p id="quote-from" class="quote-from"></p>
+            </div>
+            <p>&copy; 2025 Kobe_zyx. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="../script.js"></script>
+</body>
+</html>
