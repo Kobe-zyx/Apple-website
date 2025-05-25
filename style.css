@@ -236,41 +236,59 @@ p {
     transition: box-shadow 0.3s ease;
 }
 
-.icon-grid {
-    display: flex;
-    justify-content: center;
-    gap: calc(var(--spacing-unit) * 6);
+/* 修改后的 icon-grid 样式 */
+.hero-section .icon-grid {
+    display: grid;
+    /* 固定三列，每列等宽，且不会太小 */
+    grid-template-columns: repeat(3, minmax(200px, 1fr)); /* 调整为3列，每列最小200px，可根据需要调整 */
+    gap: calc(var(--spacing-unit) * 6); /* 增大卡片之间的间距 */
     margin-bottom: calc(var(--spacing-unit) * 6);
-    flex-wrap: wrap; /* 适应小屏幕 */
+    padding: calc(var(--spacing-unit) * 2);
+    max-width: 900px; /* 保持最大宽度，确保三列能很好地居中显示 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.icon-item {
+/* 修改后的 icon-item 样式 */
+.hero-section .icon-item {
+    background-color: var(--background-dark); /* 卡片背景色 */
+    border-radius: 12px; /* 卡片圆角 */
+    padding: calc(var(--spacing-unit) * 3); /* 卡片内部填充 */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 120px; /* 限制宽度 */
+    box-shadow: 0 2px 5px var(--shadow-color-light); /* 卡片阴影 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
 }
 
-.icon-item i {
-    width: 60px;
-    height: 60px;
-    stroke-width: 1.5; /* 图标线条粗细 */
-    color: var(--text-color); /* 使用变量 */
-    margin-bottom: calc(var(--spacing-unit) * 2);
+.hero-section .icon-item:hover {
+    transform: translateY(-5px); /* 鼠标悬停时向上移动 */
+    box-shadow: 0 8px 15px var(--shadow-color-dark); /* 鼠标悬停时增加阴影 */
+}
+
+/* 修改后的 icon-item i 和 span 样式 */
+.hero-section .icon-item i {
+    width: 50px; /* 进一步增大图标大小 */
+    height: 50px; /* 进一步增大图标大小 */
+    stroke-width: 1.5;
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit) * 2); /* 调整图标和文字的间距 */
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.icon-item:hover i {
-    color: var(--primary-color); /* 使用变量 */
-    transform: translateY(-5px);
+.hero-section .icon-item:hover i {
+    color: var(--primary-color);
+    transform: translateY(-2px); /* 鼠标悬停时图标也略微移动 */
 }
 
-.icon-item span {
+.hero-section .icon-item span {
     font-weight: 500;
-    font-size: 1.1em;
-    color: var(--secondary-text-color); /* 使用变量 */
+    font-size: 1.2em; /* 增大文字大小 */
+    color: var(--secondary-text-color);
+    word-break: break-word;
 }
+
 
 /* 作品集 */
 .portfolio-grid {
@@ -504,8 +522,19 @@ footer {
         width: 150px;
         height: 150px;
     }
-    .icon-grid {
-        gap: calc(var(--spacing-unit) * 4);
+    .hero-section .icon-grid { /* 调整响应式布局 */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 平板上改为两列或自适应 */
+        gap: calc(var(--spacing-unit) * 4); /* 调整间距 */
+    }
+    .hero-section .icon-item { /* 调整填充以适应更大图标 */
+        padding: calc(var(--spacing-unit) * 2.5);
+    }
+    .hero-section .icon-item i {
+        width: 45px; /* 平板上图标大小 */
+        height: 45px;
+    }
+    .hero-section .icon-item span {
+        font-size: 1em; /* 平板上文字大小 */
     }
     .portfolio-grid {
         grid-template-columns: 1fr; /* 单列显示 */
@@ -540,15 +569,22 @@ footer {
     .container {
         padding: 0 calc(var(--spacing-unit) * 2);
     }
-    .icon-grid {
-        flex-direction: column; /* 小屏幕下图标垂直排列 */
-        align-items: center;
+    .hero-section .icon-grid {
+        grid-template-columns: 1fr; /* 更小屏幕下，改为单列 */
+        gap: calc(var(--spacing-unit) * 3);
     }
-    .icon-item {
-        width: 100%; /* 全宽 */
-        margin-bottom: calc(var(--spacing-unit) * 3);
+    .hero-section .icon-item {
+        width: auto; /* 自动宽度 */
+        margin-bottom: calc(var(--spacing-unit) * 2); /* 适当减小底部间距 */
     }
-    .icon-item:last-child {
+    .hero-section .icon-item:last-child {
         margin-bottom: 0;
+    }
+    .hero-section .icon-item i {
+        width: 40px; /* 手机上图标大小 */
+        height: 40px;
+    }
+    .hero-section .icon-item span {
+        font-size: 0.9em; /* 手机上文字大小 */
     }
 }
