@@ -335,6 +335,143 @@ p {
     font-size: 0.9em;
 }
 
+/* 博文列表栏目样式 */
+.blog-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 响应式网格 */
+    gap: calc(var(--spacing-unit) * 4);
+    margin-top: calc(var(--spacing-unit) * 6);
+}
+
+.blog-post-item {
+    background-color: var(--background-dark); /* 使用变量 */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px var(--shadow-color-light); /* 使用变量 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
+    text-align: left;
+    display: flex; /* 使用 Flexbox 确保内容垂直排列 */
+    flex-direction: column;
+}
+
+.blog-post-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px var(--shadow-color-dark); /* 使用变量 */
+}
+
+.blog-post-item img {
+    width: 100%;
+    height: 200px; /* 调整图片高度 */
+    object-fit: cover;
+    display: block;
+}
+
+.blog-post-item h3 {
+    margin: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 1);
+    font-size: 1.5em;
+    min-height: 3em; /* 确保标题有最小高度，避免内容偏移 */
+}
+
+.blog-post-item p {
+    padding: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 2);
+    color: var(--secondary-text-color); /* 使用变量 */
+    flex-grow: 1; /* 让段落填充剩余空间 */
+}
+
+.blog-post-item .button {
+    margin: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3);
+    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+    font-size: 0.9em;
+    align-self: flex-start; /* 按钮左对齐 */
+}
+
+/* 博文详情页样式 */
+.blog-full-post {
+    background-color: var(--background-dark);
+    border-radius: 12px;
+    padding: calc(var(--spacing-unit) * 6);
+    margin-bottom: calc(var(--spacing-unit) * 8); /* 与下一个详情之间留白 */
+    box-shadow: 0 5px 20px var(--shadow-color-light);
+    text-align: left;
+    display: none; /* 默认隐藏整个博文详情区域 */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.blog-full-post.active { /* 当点击时显示 */
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 动态加载内容的样式 */
+#blog-content-placeholder h2 {
+    font-size: 2.2em;
+    margin-top: calc(var(--spacing-unit) * 2);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+#blog-content-placeholder .post-meta {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+#blog-content-placeholder img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+#blog-content-placeholder p {
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    line-height: 1.8;
+}
+
+#blog-content-placeholder ul,
+#blog-content-placeholder ol {
+    margin-left: calc(var(--spacing-unit) * 4);
+    margin-bottom: calc(var(--spacing-unit) * 3);
+}
+
+#blog-content-placeholder ul li,
+#blog-content-placeholder ol li {
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    color: var(--secondary-text-color);
+}
+
+/* 返回博文列表按钮 */
+.back-to-blog-list {
+    display: inline-flex; /* 让图标和文字同行 */
+    align-items: center;
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: calc(var(--spacing-unit) * 4); /* 调整间距 */
+    transition: color 0.3s ease;
+}
+
+.back-to-blog-list:hover {
+    color: var(--link-hover-color);
+}
+
+.back-to-blog-list i {
+    width: 20px;
+    height: 20px;
+    margin-right: calc(var(--spacing-unit) * 1);
+    stroke-width: 2;
+}
+
+/* 隐藏博文详情的父容器 */
+#blog-detail { /* 现在 #blog-detail 是整个详情区域的 ID */
+    display: none; /* 默认隐藏博文详情的整个区域 */
+}
+
+#blog-detail.active {
+    display: block; /* 当有博文被激活时显示 */
+}
+
 /* 联系表单 */
 .contact-form {
     display: flex;
@@ -488,7 +625,7 @@ footer {
     background-color: var(--primary-color); /* 悬停背景色 */
     color: #FFFFFF; /* 悬停图标颜色 */
     border-color: var(--primary-color); /* 悬停边框颜色 */
-    box-shadow: 0 8px 20px var(--shadow-color-dark); /* 悬停阴影 */
+    box-shadow: 0 8px 20px var(--shadow-color-dark); /* 悬浮阴影 */
     transform: translateY(-2px); /* 略微上浮 */
 }
 
@@ -536,11 +673,14 @@ footer {
     .hero-section .icon-item span {
         font-size: 1em; /* 平板上文字大小 */
     }
-    .portfolio-grid {
-        grid-template-columns: 1fr; /* 单列显示 */
+    .portfolio-grid, .blog-posts-grid { /* 作品集和博文都改为单列显示 */
+        grid-template-columns: 1fr;
     }
-    .portfolio-item {
+    .portfolio-item, .blog-post-item {
         margin-bottom: calc(var(--spacing-unit) * 4);
+    }
+    .blog-full-post {
+        padding: calc(var(--spacing-unit) * 4);
     }
 
     /* 手机端调整回到顶部按钮位置 */
