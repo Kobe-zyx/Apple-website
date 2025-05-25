@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
+        themeToggle.textContent = '☀️'; 
     } else {
         themeToggle.textContent = '🌙';
     }
