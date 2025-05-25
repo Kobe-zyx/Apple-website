@@ -6,7 +6,7 @@
     --primary-color: #007AFF; /* Apple 蓝色 */
     --text-color: #1D1D1F; /* 深灰色文本 */
     --secondary-text-color: #6E6E73; /* 浅灰色文本 */
-    --background-light: #F5F5F7; /* 浅背景色 */
+    --background-light: #F5F5F7; /* 浅背景色 */ 
     --background-dark: #FFFFFF; /* 深背景色 (用于卡片、导航栏) */
     --border-color: #EAEAEA; /* 边框颜色 */
     --link-hover-color: #0066CC; /* 链接悬停色 */
