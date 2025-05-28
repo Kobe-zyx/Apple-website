@@ -3,50 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Pages + Hexo 搭建个人博客 - Kobe_zyx</title>
+    <title>Hexo博客搭建指南 - Kobe_zyx</title>
     <link rel="stylesheet" href="../style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <header class="navbar">
         <div class="container">
-            <a href="../index.html#home" class="logo">Kobe_zyx——张宇轩</a>
-            <nav>
-                <ul>
-                    <li><a href="../index.html#home">首页</a></li>
-                    <li><a href="../index.html#about">关于我</a></li>
-                    <li><a href="../index.html#portfolio">作品集</a></li>
-                    <li><a href="../index.html#blog" class="active">博文</a></li>
-                    <li><a href="../index.html#contact">联系我</a></li>
-                    <li><button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">🌙</button></li>
-                </ul>
-            </nav>
+            <a href="../index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../blog.html">Geek</a></li>
+                        <li><a href="../timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
+
+    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode"></button>
 
     <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
         <div class="container">
             <article class="blog-full-post active">
-                <a href="../index.html#blog" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
-                <div class="blog-content">
-                    <h2>GitHub Pages + Hexo 搭建个人博客：从零开始</h2>
-                    <p class="post-meta">发布日期: 2023年12月26日</p>
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7673.JPG" alt="博文封面 3">
-                    <p>一直想拥有一个自己的博客，记录学习点滴和分享经验。尝试过各种博客平台，但最终选择了 GitHub Pages 结合 Hexo 搭建个人博客，因为它提供了极高的自由度和完全的控制权。</p>
-                    <p>以下是我搭建博客的主要步骤：</p>
-                    <ol>
-                        <li><strong>安装 Node.js 和 Git</strong>：这是 Hexo 运行的基础环境。</li>
-                        <li><strong>安装 Hexo CLI</strong>：通过 <code>npm install -g hexo-cli</code> 快速安装。</li>
-                        <li><strong>初始化博客</strong>：使用 <code>hexo init myblog</code> 创建一个新项目，然后 <code>cd myblog && npm install</code> 安装依赖。</li>
-                        <li><strong>配置 <code>_config.yml</code></strong>：修改网站标题、作者信息、部署方式等。</li>
-                        <li><strong>选择和配置主题</strong>：Hexo 有大量精美主题可供选择，我选择了 [主题名称，例如：NexT]，并根据个人喜好进行定制。</li>
-                        <li><strong>撰写博文</strong>：使用 Markdown 格式撰写文章，非常简洁高效。</li>
-                        <li><strong>生成和部署</strong>：通过 <code>hexo generate</code> 生成静态文件，然后 <code>hexo deploy</code> 将文件推送到 GitHub Pages。</li>
-                        <li><strong>绑定自定义域名</strong>：如果需要，可以在 GitHub Pages 设置中绑定自己的域名。</li>
-                    </ol>
-                    <p>搭建过程中最大的收获是深入理解了静态站点生成器的工作原理以及 Git 的版本控制。虽然初期会有一些学习曲线，但完成后，拥有一个完全属于自己的博客平台，那种满足感是无法比拟的。</p>
+                <a href="../blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <h2>Hexo博客搭建完全指南</h2>
+                        <p class="post-meta">发布日期: 2024年2月8日</p>
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/hexo-blog.jpg" alt="Hexo博客">
+                        <div class="markdown-content">
+                            <h2 id="intro">引言</h2>
+                            <p>Hexo是一个快速、简洁且高效的博客框架，它使用Markdown编写文章，可以生成静态网页。</p>
+
+                            <h2 id="setup">环境搭建</h2>
+                            <p>搭建Hexo博客的基本步骤：</p>
+                            <ul>
+                                <li>安装Node.js和Git</li>
+                                <li>安装Hexo命令行工具</li>
+                                <li>创建新的博客项目</li>
+                                <li>选择并安装主题</li>
+                            </ul>
+
+                            <h2 id="features">主要特性</h2>
+                            <p>Hexo的核心功能：</p>
+                            <ul>
+                                <li><strong>Markdown支持</strong>：轻松编写文章</li>
+                                <li><strong>主题系统</strong>：丰富的主题选择</li>
+                                <li><strong>插件机制</strong>：扩展功能</li>
+                                <li><strong>部署便捷</strong>：支持多种部署方式</li>
+                            </ul>
+
+                            <h2 id="conclusion">结论</h2>
+                            <p>Hexo是一个优秀的博客框架，适合想要快速搭建个人博客的开发者。</p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">引言</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#setup">环境搭建</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#features">主要特性</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">结论</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <a href="../index.html#blog" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <a href="../blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
             </article>
         </div>
     </section>
@@ -69,5 +95,36 @@
         feather.replace();
     </script>
     <script src="../script.js"></script>
+    <script>
+        // 导航栏滚动显示/隐藏逻辑
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        const scrollThreshold = 50; // 滚动阈值
+        let scrollTimeout;
+
+        function handleScroll() {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 清除之前的定时器
+            clearTimeout(scrollTimeout);
+            
+            // 设置新的定时器
+            scrollTimeout = setTimeout(() => {
+                if (currentScroll > lastScrollTop && currentScroll > scrollThreshold) {
+                    // 向下滚动
+                    navbar.classList.remove('visible');
+                    navbar.classList.add('hidden');
+                } else {
+                    // 向上滚动或在顶部
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('visible');
+                }
+                lastScrollTop = currentScroll;
+            }, 100); // 添加100ms的延迟，使动画更平滑
+        }
+
+        // 添加滚动事件监听
+        window.addEventListener('scroll', handleScroll);
+    </script>
 </body>
 </html>
