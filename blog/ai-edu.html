@@ -10,40 +10,73 @@
 <body>
     <header class="navbar">
         <div class="container">
-            <a href="../index.html#home" class="logo">Kobe_zyx——张宇轩</a>
-            <nav>
-                <ul>
-                    <li><a href="../index.html#home">首页</a></li>
-                    <li><a href="../index.html#about">关于我</a></li>
-                    <li><a href="../index.html#portfolio">作品集</a></li>
-                    <li><a href="../index.html#blog" class="active">博文</a></li>
-                    <li><a href="../index.html#contact">联系我</a></li>
-                    <li><button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">🌙</button></li>
-                </ul>
-            </nav>
+            <a href="../index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../blog.html">Geek</a></li>
+                        <li><a href="../timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
+
+    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode"></button>
 
     <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
         <div class="container">
             <article class="blog-full-post active">
-                <a href="../index.html#blog" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
-                <div class="blog-content">
-                    <h2>AI时代的教育与学习：新技能，新思维</h2>
-                    <p class="post-meta">发布日期: 2024年2月10日</p>
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7675.JPG" alt="博文封面 1">
-                    <p>人工智能正在深刻改变我们的生活和工作方式，教育领域也正经历一场变革。我们不再仅仅关注知识的灌输，更重要的是培养学生批判性思维、解决问题的能力以及终身学习的习惯。</p>
-                    <p>AI 工具可以帮助我们个性化学习路径，提供即时反馈，甚至模拟复杂的场景供学生实践。但同时，我们也需要警惕其带来的挑战，例如信息过载、算法偏见以及对人类创造力的影响。</p>
-                    <p>作为学习者，拥抱 AI 意味着掌握新的工具，更重要的是培养适应未来变化的能力，比如：</p>
-                    <ul>
-                        <li><strong>批判性思考</strong>：辨别信息真伪，理解 AI 的局限性。</li>
-                        <li><strong>创新能力</strong>：利用 AI 激发灵感，解决传统方法难以解决的问题。</li>
-                        <li><strong>跨学科学习</strong>：将 AI 与其他领域知识结合，创造新价值。</li>
-                        <li><strong>人际交往与情商</strong>：这些是 AI 难以取代的独特人类能力。</li>
-                    </ul>
-                    <p>未来已来，教育的转型势在必行。我们应该积极探索 AI 在教育中的潜力，让它成为我们学习和成长的强大助力。</p>
+                <a href="../blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <h2>AI时代的教育与学习：新技能，新思维</h2>
+                        <p class="post-meta">发布日期: 2024年2月10日</p>
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/Personal%20AI%20Tools%202025_%20Simplify%20Daily%20Life!%20%E2%9C%A8.jfif" alt="博文封面 1">
+                        <div class="markdown-content">
+                            <h2 id="intro">引言</h2>
+                            <p>人工智能正在深刻改变我们的生活和工作方式，教育领域也正经历一场变革。我们不再仅仅关注知识的灌输，更重要的是培养学生批判性思维、解决问题的能力以及终身学习的习惯。</p>
+
+                            <h2 id="ai-tools">AI 工具在教育中的应用</h2>
+                            <p>AI 工具可以帮助我们个性化学习路径，提供即时反馈，甚至模拟复杂的场景供学生实践。但同时，我们也需要警惕其带来的挑战，例如信息过载、算法偏见以及对人类创造力的影响。</p>
+
+                            <h2 id="challenges">面临的挑战</h2>
+                            <p>在 AI 时代，教育面临着多重挑战：</p>
+                            <ul>
+                                <li>如何平衡 AI 辅助教学与传统教学方法</li>
+                                <li>如何培养学生的创造力和批判性思维</li>
+                                <li>如何确保教育公平性，避免技术鸿沟</li>
+                                <li>如何保护学生隐私和数据安全</li>
+                            </ul>
+
+                            <h2 id="future-skills">未来所需技能</h2>
+                            <p>作为学习者，拥抱 AI 意味着掌握新的工具，更重要的是培养适应未来变化的能力，比如：</p>
+                            <ul>
+                                <li><strong>批判性思考</strong>：辨别信息真伪，理解 AI 的局限性。</li>
+                                <li><strong>创新能力</strong>：利用 AI 激发灵感，解决传统方法难以解决的问题。</li>
+                                <li><strong>跨学科学习</strong>：将 AI 与其他领域知识结合，创造新价值。</li>
+                                <li><strong>人际交往与情商</strong>：这些是 AI 难以取代的独特人类能力。</li>
+                            </ul>
+
+                            <h2 id="conclusion">结论</h2>
+                            <p>未来已来，教育的转型势在必行。我们应该积极探索 AI 在教育中的潜力，让它成为我们学习和成长的强大助力。同时，我们也要保持清醒的头脑，确保 AI 技术始终服务于教育本质，而不是本末倒置。</p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">引言</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#ai-tools">AI 工具在教育中的应用</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#challenges">面临的挑战</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#future-skills">未来所需技能</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">结论</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <a href="../index.html#blog" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <a href="../blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
             </article>
         </div>
     </section>
@@ -63,8 +96,39 @@
     </button>
 
     <script>
-        feather.replace(); // 初始化 Feather Icons
+        feather.replace();
     </script>
     <script src="../script.js"></script>
+    <script>
+        // 导航栏滚动显示/隐藏逻辑
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        const scrollThreshold = 50; // 滚动阈值
+        let scrollTimeout;
+
+        function handleScroll() {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 清除之前的定时器
+            clearTimeout(scrollTimeout);
+            
+            // 设置新的定时器
+            scrollTimeout = setTimeout(() => {
+                if (currentScroll > lastScrollTop && currentScroll > scrollThreshold) {
+                    // 向下滚动
+                    navbar.classList.remove('visible');
+                    navbar.classList.add('hidden');
+                } else {
+                    // 向上滚动或在顶部
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('visible');
+                }
+                lastScrollTop = currentScroll;
+            }, 100); // 添加100ms的延迟，使动画更平滑
+        }
+
+        // 添加滚动事件监听
+        window.addEventListener('scroll', handleScroll);
+    </script>
 </body>
 </html>
