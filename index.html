@@ -3,136 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kobe_zyx - 个人网站</title>
+    <title>Kobe_zyx</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
-<body>
+<body class="fade-in">
     <header class="navbar">
         <div class="container">
-            <a href="#home" class="logo">Kobe_zyx——张宇轩</a>
-            <nav>
-                <ul>
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">关于我</a></li>
-                    <li><a href="#portfolio">作品集</a></li>
-                    <li><a href="#blog">博文</a></li>
-                    <li><a href="#contact">联系我</a></li>
-                    <li><button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">🌙</button></li>
-                </ul>
-            </nav>
+            <a href="index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="blog.html">Geek</a></li>
+                        <li><a href="timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <section id="home" class="hero-section">
+    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">
+    </button>
+
+    <section id="hero" class="hero-section">
         <div class="container">
             <div class="hero-content">
-                <h1>创意无限，设计未来</h1>
-                <p>我是 [Kobe_zyx]，一位专注于 [Information & Technology] 的 [Students & Study]。</p>
-                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="你的个人照片" class="profile-photo">
-                <div class="icon-grid">
-                    <div class="icon-item">
-                        <i data-feather="monitor"></i>
-                        <span>UI/UX 设计</span>
-                    </div>
-                    <div class="icon-item">
-                        <i data-feather="code"></i>
-                        <span>前端开发</span>
-                    </div>
-                    <div class="icon-item">
-                        <i data-feather="bar-chart"></i>
-                        <span>数据分析</span>
-                    </div>
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="个人照片" class="profile-photo">
+                <h1>Kobe</h1>
+                <p>Hello 👋, I'm YuXuan Zhang, an IT enthusiast, Student.</p>
+                <p>你好 👋，我是张宇轩，一名IT爱好者、学生。</p>
+                <p>I'm dedicated to bridging the information gap and helping beginners quickly grasp AI applications. I feel like I'm helping my former self, and it brings me immense joy. If my work gains attention or recognition, that's truly an honor, and I deeply appreciate every bit of feedback.</p>
+                <p>我致力于打破信息差，帮助新手快速掌握AI应用，帮助新手快速掌握AI应用。我一直觉得自己是在帮助曾经的那个自己，做这件事让我感到无比快乐。如果我的分享能得到大家的关注和认可，那真是我的荣幸，我非常感激每一条反馈。</p>
+                <p>If you are interested in following my journey, feel free to visit my blog's Timeline, where you'll find my story, thoughts, struggles, and growth. You can also click the button below to follow my social media accounts for more content.</p>
+                <p>如果你有兴趣了解我的更多动态，可以访问我的博客 时间轴，那里有我的生平故事、一些思考、困惑和成长历程。你也可以点击下方的按钮关注我的社交媒体账号，获取更多内容。</p>
+                <div class="social-links">
+                    <a href="https://twitter.com/kobe_zyx24" target="_blank" rel="noopener noreferrer">
+                        <svg class="twitter-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/Kobe-zyx" target="_blank" rel="noopener noreferrer">
+                        <svg class="github-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://space.bilibili.com/3493117212756073" target="_blank" rel="noopener noreferrer">
+                        <svg class="bilibili-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.147.187.227h4.267a.836.836 0 0 1 .16-.227l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.499 1.134.757 1.88.773h13.334c.746-.016 1.373-.274 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@kobezyx" target="_blank" rel="noopener noreferrer">
+                        <svg class="youtube-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
                 </div>
-                <a href="#portfolio" class="button primary">查看作品集</a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="section">
+    <section id="projects" class="section">
         <div class="container">
-            <h2>关于我</h2>
-            <p>Hello 👋, I’m YuXuan Zhang, an IT enthusiast, Student.</p>
-            <p>你好 👋，我是张宇轩，一名IT爱好者、学生。</p>
-            <p>I’m dedicated to bridging the information gap and helping beginners quickly grasp AI applications. I feel like I’m helping my former self, and it brings me immense joy. If my work gains attention or recognition, that’s truly an honor, and I deeply appreciate every bit of feedback.</p>
-            <p>我致力于打破信息差，帮助新手快速掌握AI应用。我一直觉得自己是在帮助曾经的那个自己，做这件事让我感到无比快乐。如果我的分享能得到大家的关注和认可，那真是我的荣幸，我非常感激每一条反馈。</p>
-            <p>If you are interested in learning more about me, you can visit my blog <a href="#blog">点击此处</a> where I post and share my work. You can also click the button below to follow my social media accounts for more content.</p>
-            </div>
-    </section>
-
-    <section id="portfolio" class="section">
-        <div class="container">
-            <h2>作品集</h2>
+            <h2>Projects</h2>
+            <h3>项目</h3>
+            <p>Some of my recent projects and websites<br>我的一些近期项目和网站</p>
             <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/2025%E5%B9%B45%E6%9C%8824%E6%97%A5%2022_09_20.png" alt="项目1">
-                    <h3>模拟计算机操作系统案例</h3>
-                    <p>这个项目展示了我在系统UI/UX设计上的显著成果</p>
-                    <a href="https://shequ.codemao.cn/work/181104959" class="button secondary" target="_blank" rel="noopener noreferrer">了解详情</a>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/Free%20Gemini%20icon%20logo%20PNG%20and%20vector%20files%20(svg%2C%20eps)%20-%20Brandlogos_net.jfif" alt="项目2">
-                    <h3>多模态Gemini体验</h3>
-                    <p>此项目为普通人提供了体验现代多模态AI的强大能力，仅需API密钥即可立即体验</p>
-                    <a href="https://gemini-multimoding-play.deno.dev/" class="button secondary" target="_blank" rel="noopener noreferrer">了解详情</a>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/Kwhite.png" alt="项目3">
-                    <h3>个人博客</h3>
-                    <p>这是一个分享技术心得，成长体验的博客平台</p>
-                    <a href="https://kobezyx.com" class="button secondary" target="_blank" rel="noopener noreferrer">了解详情</a>
-                </div>
-                </div>
-        </div>
-    </section>
-
-    <section id="blog" class="section">
-        <div class="container">
-            <h2>我的博文</h2>
-            <p>在这里，我分享我的技术见解、学习笔记和个人思考。</p>
-            <div class="blog-posts-grid">
-                <div class="blog-post-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7675.JPG" alt="博文封面 1">
-                    <h3>AI时代的教育与学习：新技能，新思维</h3>
-                    <p>人工智能正在深刻改变我们的生活和工作方式，教育领域也正经历一场变革...</p>
-                    <a href="blog/ai-edu.html" class="button secondary">阅读更多</a>
-                </div>
-                <div class="blog-post-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7674.JPG" alt="博文封面 2">
-                    <h3>我的个人AI助理项目：ChatGPT Web应用开发实践</h3>
-                    <p>作为一名IT爱好者和学生，我一直对人工智能充满了好奇。最近，我动手开发了一个个人AI助理项目...</p>
-                    <a href="blog/ai-assistant.html" class="button secondary">阅读更多</a>
-                </div>
-                <div class="blog-post-item">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7673.JPG" alt="博文封面 3">
-                    <h3>GitHub Pages + Hexo 搭建个人博客：从零开始</h3>
-                    <p>一直想拥有一个自己的博客，记录学习点滴和分享经验。尝试过各种博客平台...</p>
-                    <a href="blog/hexo-blog.html" class="button secondary">阅读更多</a>
-                </div>
+                <a href="https://gemini-multimoding-play.deno.dev/" class="portfolio-item" target="_blank" rel="noopener noreferrer">
+                    <div class="portfolio-icon">
+                        <i data-feather="github"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>多模态Gemini体验</h3>
+                        <p>此项目为普通人提供了体验现代多模态AI的强大能力，仅需API密钥即可立即体验</p>
+                    </div>
+                </a>
+                <a href="https://kobezyx.com" class="portfolio-item" target="_blank" rel="noopener noreferrer">
+                    <div class="portfolio-icon">
+                        <i data-feather="github"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>个人博客</h3>
+                        <p>这是一个分享技术心得，成长体验的博客平台</p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section">
+    <section id="career" class="section">
         <div class="container">
-            <h2>联系我</h2>
-            <p>期待与你合作！请填写以下表格，我会尽快回复。</p>
-            <form class="contact-form" action="mailto:kobezyuxuan@gmail.com?subject=来自个人网站的联系&body=姓名：%0D%0A邮箱：%0D%0A消息内容：%0D%0A" method="GET" enctype="text/plain">
-                <input type="text" name="name" placeholder="你的名字" required>
-                <input type="email" name="email" placeholder="你的邮箱" required>
-                <textarea name="message" placeholder="你的消息" required></textarea>
-                <button type="submit" class="button primary">发送邮件</button>
-            </form>
-            <p>或者直接通过以下方式联系我：</p>
-            <div class="contact-info">
-                <p><i data-feather="mail"></i> 邮箱: <a href="mailto:kobezyuxuan@gmail.com">kobezyuxuan@gmail.com</a></p>
-                <p><i data-feather="phone"></i> 电话: 你的电话号码 (可选)</p>
+            <h2>Career</h2>
+            <h3>职业</h3>
+            <p>With 14+ years of self-learning experience, most of my skills were acquired through the internet.<br>我有 14 年以上的自学经验，大部分技能都是通过互联网获得的。</p>
+            <div class="career-items">
+                <a href="#" class="career-item-card">
+                    <div class="career-meta-container">
+                        <div class="career-meta">XI'AN, China</div>
+                        <div class="career-duration">2024 — Present</div>
+                    </div>
+                    <h3>In the second grade</h3>
+                    <h3>正处初二年级</h3>
+                    <p>Creating content focused on AI technology and productivity tools.</p>
+                    <p>创建专注于人工智能技术和生产力工具的内容。</p>
+                </a>
+                <a href="#" class="career-item-card">
+                    <div class="career-meta-container">
+                        <div class="career-meta">XI'AN, China</div>
+                        <div class="career-duration">2023 — 2024</div>
+                    </div>
+                    <h3>The first year of junior high school</h3>
+                    <h3>初中学习生涯的第一年</h3>
+                    <p>In the twilight of the first year of junior high school, my desks were piled up into a glass maze, the scores on the test papers moved southward as regularly as migratory birds, and the mathematical formulas condensed into icy edges on the draft paper, reflecting the dull pain of my efforts drifting further and further away from my expectations.</p>
+                    <p>初一的暮色中，我的课桌堆砌成玻璃迷宫，试卷上的分数如候鸟迁徙般规律南移，数学公式在草稿纸上凝结成冰棱，折射出努力与预期渐行渐远的钝痛。</p>
+                </a>
+                <a href="#" class="career-item-card">
+                    <div class="career-meta-container">
+                        <div class="career-meta">XI'AN, China</div>
+                        <div class="career-duration">2021 — 2023</div>
+                    </div>
+                    <h3>Complete the remaining years of primary school</h3>
+                    <h3>完成小学的剩余学年</h3>
+                    <p>Systematically advance academic studies at all stages of basic education, scientifically plan personalized development paths, and successfully complete the goals of knowledge construction and core literacy cultivation throughout the entire cycle of primary education.</p>
+                    <p>系统化推进基础教育各阶段学业，科学规划个性化发展路径，圆满完成小学教育全周期知识构建与核心素养培育目标。</p>
+                </a>
+                <a href="#" class="career-item-card">
+                    <div class="career-meta-container">
+                        <div class="career-meta">XI'AN, China</div>
+                        <div class="career-duration">2020 — 2021</div>
+                    </div>
+                    <h3>The arrival of the epidemic</h3>
+                    <h3>疫情的来临</h3>
+                    <p>Spent a year in self-study and personal development. </p>
+                    <p>花了一年时间进行自学和个人发展。 </p>
+                </a>
             </div>
-
-            <div class="social-links">
-                <a href="https://twitter.com/kobe_zyx24" target="_blank" rel="noopener noreferrer"><i data-feather="twitter"></i></a>
-                <a href="https://github.com/Kobe-zyx" target="_blank" rel="noopener noreferrer"><i data-feather="github"></i></a>
-                </div>
         </div>
     </section>
 
