@@ -3,47 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人AI助理项目 - Kobe_zyx</title>
-    <link rel="stylesheet" href="../style.css"> 
+    <title>AI助手技术解析 - Kobe_zyx</title>
+    <link rel="stylesheet" href="../style.css">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
     <header class="navbar">
         <div class="container">
-            <a href="../index.html#home" class="logo">Kobe_zyx——张宇轩</a>
-            <nav>
-                <ul>
-                    <li><a href="../index.html#home">首页</a></li>
-                    <li><a href="../index.html#about">关于我</a></li>
-                    <li><a href="../index.html#portfolio">作品集</a></li>
-                    <li><a href="../index.html#blog" class="active">博文</a></li>
-                    <li><a href="../index.html#contact">联系我</a></li>
-                    <li><button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">🌙</button></li>
-                </ul>
-            </nav>
+            <a href="../index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../blog.html">Geek</a></li>
+                        <li><a href="../timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
+
+    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode"></button>
 
     <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
         <div class="container">
             <article class="blog-full-post active">
-                <a href="../index.html#blog" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
-                <div class="blog-content">
-                    <h2>我的个人AI助理项目：ChatGPT Web应用开发实践</h2>
-                    <p class="post-meta">发布日期: 2023年12月26日</p>
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_7674.JPG" alt="博文封面 2">
-                    <p>作为一名IT爱好者和学生，我一直对人工智能充满了好奇。最近，我动手开发了一个个人AI助理项目，旨在创建一个基于 ChatGPT API 的 Web 应用，让普通用户也能轻松体验到多模态AI的强大能力。</p>
-                    <p>项目开发过程中，我主要使用了以下技术栈：</p>
-                    <ul>
-                        <li><strong>前端</strong>：HTML, CSS, JavaScript (React / Vue 等框架可以提高效率，但此项目我倾向于原生 JS 以便深入理解)</li>
-                        <li><strong>后端/API 调用</strong>：Node.js (或其他后端语言，负责代理 API 请求和处理数据)</li>
-                        <li><strong>AI 模型</strong>：OpenAI 的 ChatGPT API (包括文本生成、图像识别等)</li>
-                        <li><strong>部署</strong>：Deno Deploy (因为其便捷的部署流程和对 Web 标准的良好支持)</li>
-                    </ul>
-                    <p>开发过程中遇到的挑战主要集中在 API 调用、错误处理、用户界面的响应式设计以及如何优化用户体验。我通过不断查阅文档、调试代码和在社区寻求帮助，逐步克服了这些困难。</p>
-                    <p>这个项目不仅让我对 AI 技术有了更直观的理解，也大大提升了我的 Web 开发技能。未来，我计划继续完善这个项目，例如增加语音输入功能、集成更多 AI 模型，并将其开源，以便更多人可以学习和使用。</p>
+                <a href="../blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <h2>AI助手：改变人机交互的未来</h2>
+                        <p class="post-meta">发布日期: 2024年2月12日</p>
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/ai-assistant.jpg" alt="AI助手">
+                        <div class="markdown-content">
+                            <h2 id="intro">引言</h2>
+                            <p>AI助手正在重塑我们与技术交互的方式，从简单的语音命令到复杂的对话系统，它们正在变得越来越智能和人性化。</p>
+
+                            <h2 id="tech-basics">技术基础</h2>
+                            <p>现代AI助手的主要技术组成：</p>
+                            <ul>
+                                <li>自然语言处理</li>
+                                <li>机器学习算法</li>
+                                <li>语音识别技术</li>
+                                <li>知识图谱</li>
+                            </ul>
+
+                            <h2 id="applications">应用场景</h2>
+                            <p>AI助手的主要应用领域：</p>
+                            <ul>
+                                <li><strong>智能家居</strong>：控制家电、调节环境</li>
+                                <li><strong>个人助理</strong>：日程管理、信息查询</li>
+                                <li><strong>客户服务</strong>：24/7在线支持</li>
+                                <li><strong>教育辅导</strong>：个性化学习助手</li>
+                            </ul>
+
+                            <h2 id="conclusion">结论</h2>
+                            <p>AI助手将继续进化，为我们的生活带来更多便利和可能性。</p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">引言</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#tech-basics">技术基础</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#applications">应用场景</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">结论</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <a href="../index.html#blog" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <a href="../blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
             </article>
         </div>
     </section>
@@ -66,5 +95,36 @@
         feather.replace();
     </script>
     <script src="../script.js"></script>
+    <script>
+        // 导航栏滚动显示/隐藏逻辑
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        const scrollThreshold = 50; // 滚动阈值
+        let scrollTimeout;
+
+        function handleScroll() {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // 清除之前的定时器
+            clearTimeout(scrollTimeout);
+            
+            // 设置新的定时器
+            scrollTimeout = setTimeout(() => {
+                if (currentScroll > lastScrollTop && currentScroll > scrollThreshold) {
+                    // 向下滚动
+                    navbar.classList.remove('visible');
+                    navbar.classList.add('hidden');
+                } else {
+                    // 向上滚动或在顶部
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('visible');
+                }
+                lastScrollTop = currentScroll;
+            }, 100); // 添加100ms的延迟，使动画更平滑
+        }
+
+        // 添加滚动事件监听
+        window.addEventListener('scroll', handleScroll);
+    </script>
 </body>
 </html>
