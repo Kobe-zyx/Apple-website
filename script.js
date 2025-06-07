@@ -1,27 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 主题切换逻辑
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // 根据 localStorage 设置初始主题
-    if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
-    } else {
-        themeToggle.textContent = '🌙';
-    }
-
-    // 切换主题事件监听器
-    themeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            themeToggle.textContent = '☀️';
-        } else {
-            localStorage.setItem('theme', 'light');
-            themeToggle.textContent = '🌙';
-        }
-    });
+    feather.replace(); // 在 DOMContentLoaded 事件中调用 feather.replace()
 
     // 回到顶部按钮逻辑
     const backToTopButton = document.getElementById('back-to-top');
@@ -45,30 +23,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const quoteText = document.getElementById('quote-text');
     const quoteFrom = document.getElementById('quote-from');
 
-    function fetchDailyQuote() {
-        const quotes = [
-            { text: "未来属于那些相信梦想之美的人。", from: "埃莉诺·罗斯福" },
-            { text: "唯一能做出伟大工作的方法就是热爱你所做的一切。", from: "史蒂夫·乔布斯" },
-            { text: "生活就像骑自行车。为了保持平衡，你必须不断前进。", from: "阿尔伯特·爱因斯坦" },
-            { text: "不要满足于现状，追求卓越，直到梦想成真。", from: "Kobe Bryant" },
-            { text: "人生并非等待风暴过去，而是学会在雨中起舞。", from: "维维安·格林" },
-            { text: "创新是区分领导者和追随者的关键。", from: "史蒂夫·乔布斯" },
-            { text: "如果你不能飞，那就跑；如果你不能跑，那就走；如果你不能走，那就爬。但无论你做什么，你都必须不断前进。", from: "马丁·路德·金" },
-            { text: "成功不是最终的，失败也不是致命的：最重要的是继续前进的勇气。", from: "温斯顿·丘吉尔" },
-            { text: "成为你想在世界上看到的变化。", from: "圣雄甘地" },
-            { text: "最好的报复是巨大的成功。", from: "弗兰克·辛纳特拉" }
-        ];
-
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        const dailyQuote = quotes[randomIndex];
-
-        quoteText.textContent = `"${dailyQuote.text}"`;
-        quoteFrom.textContent = `- ${dailyQuote.from}`;
+    async function fetchDailyQuote() {
+        try {
+            const response = await fetch('https://v1.hitokoto.cn/?c=i&encode=json');
+            const data = await response.json();
+            
+            quoteText.textContent = `"${data.hitokoto}"`;
+            quoteFrom.textContent = `- ${data.from}`;
+        } catch (error) {
+            // 如果API调用失败，使用备用名言
+            const fallbackQuotes = [
+                { text: "未来属于那些相信梦想之美的人。", from: "埃莉诺·罗斯福" },
+                { text: "唯一能做出伟大工作的方法就是热爱你所做的一切。", from: "史蒂夫·乔布斯" },
+                { text: "生活就像骑自行车。为了保持平衡，你必须不断前进。", from: "阿尔伯特·爱因斯坦" }
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * fallbackQuotes.length);
+            const fallbackQuote = fallbackQuotes[randomIndex];
+            
+            quoteText.textContent = `"${fallbackQuote.text}"`;
+            quoteFrom.textContent = `- ${fallbackQuote.from}`;
+        }
     }
 
     fetchDailyQuote();
 
     // 页面加载时的淡入效果
+    const body = document.body;
     body.classList.add('fade-in'); // 添加淡入类
     setTimeout(() => {
         body.classList.add('active'); // 激活淡入效果
@@ -121,21 +102,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 头像滚动效果
     const profilePhoto = document.querySelector('.profile-photo');
     let ticking = false;
-    
+
     window.addEventListener('scroll', function() {
         if (!ticking) {
             window.requestAnimationFrame(function() {
                 const currentScrollY = window.scrollY;
-                
+
                 if (currentScrollY > 100) {
                     profilePhoto.classList.add('scrolled');
                 } else {
                     profilePhoto.classList.remove('scrolled');
                 }
-                
+
                 ticking = false;
             });
-            
+
             ticking = true;
         }
     });
@@ -147,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 获取原始内容
     const content = markdownContent.innerHTML;
-    
+
     // 配置 marked 选项
     marked.setOptions({
         breaks: true,  // 支持 GitHub 风格的换行
@@ -159,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 解析 Markdown
     const parsedContent = marked.parse(content);
-    
+
     // 更新内容
     markdownContent.innerHTML = parsedContent;
 
@@ -172,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 为每个标题添加 id
             const id = heading.id || `heading-${index}`;
             heading.id = id;
-            
+
             // 创建目录项
             const li = document.createElement('li');
             const a = document.createElement('a');
@@ -229,4 +210,25 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightNavLink);
     // 页面加载后立即执行一次，以确保初始状态的导航项正确高亮
     highlightNavLink();
+});
+
+// 深浅模式切换逻辑
+document.addEventListener('DOMContentLoaded', function() {
+    // 深浅模式切换
+    const themeToggle = document.querySelector('.theme-toggle');
+
+    // 检查本地存储中的主题设置
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+
+    // 切换主题
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
 });

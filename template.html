@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章标题 - Kobe_zyx</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Geek</a></li>
+                        <li><a href="timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+
+    <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
+        <div class="container">
+            <article class="blog-full-post active">
+                <a href="blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <!-- 文章标题 -->
+                        <h2>文章标题</h2>
+                        <!-- 发布日期 -->
+                        <p class="post-meta">发布日期: YYYY年MM月DD日</p>
+                        <!-- 封面图片 -->
+                        <img src="图片URL" alt="文章封面">
+                        <div class="markdown-content">
+                            <!-- 引言 -->
+                            <h2 id="intro">引言</h2>
+                            <p>在这里写入引言内容，简要介绍文章主题和背景。</p>
+
+                            <!-- 第一部分 -->
+                            <h2 id="section-1">第一部分标题</h2>
+                            <p>第一部分的内容描述。</p>
+                            <ul>
+                                <li>要点1</li>
+                                <li>要点2</li>
+                                <li>要点3</li>
+                            </ul>
+
+                            <!-- 第二部分 -->
+                            <h2 id="section-2">第二部分标题</h2>
+                            <p>第二部分的内容描述。</p>
+                            <ul>
+                                <li><strong>重点1</strong>：详细说明。</li>
+                                <li><strong>重点2</strong>：详细说明。</li>
+                                <li><strong>重点3</strong>：详细说明。</li>
+                            </ul>
+
+                            <!-- 结论 -->
+                            <h2 id="conclusion">结论</h2>
+                            <p>总结文章要点，提出展望或建议。</p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">引言</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#section-1">第一部分标题</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#section-2">第二部分标题</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">结论</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="daily-quote">
+                <p id="quote-text"></p>
+                <p id="quote-from" class="quote-from"></p>
+            </div>
+            <p>&copy; 2025 Kobe_zyx. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <script>
+        feather.replace(); // 初始化 Feather Icons
+    </script>
+   <script src="script.js"></script>
+    <!-- 添加深浅模式切换按钮 -->
+    <button class="theme-toggle" aria-label="切换深浅模式">
+        <img src="svg/ld/light.svg" alt="切换到浅色模式" class="light-icon">
+        <img src="svg/ld/dark.svg" alt="切换到深色模式" class="dark-icon">
+    </button>
+</body>
+</html> 

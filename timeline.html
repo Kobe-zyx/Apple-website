@@ -1,456 +1,1063 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>时间轴 - Kobe_zyx</title>
+    <title>TimeLine - Kobe_zyx</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png">
     <style>
-        /* 内容区域样式 */
+        /* 通用时间轴样式 (部分来自旧版本，已调整) */
         .timeline-section {
-            margin-top: 100px; /* 增加上边距，与导航栏保持更大距离 */
+            margin-top: 100px;
             transition: margin-top 0.3s ease;
         }
-
-        /* 当导航栏隐藏时，移除上边距 */
         .navbar.hidden ~ .timeline-section {
             margin-top: 0;
         }
 
-        /* 确保容器有正确的内边距 */
         .container {
-            padding-top: calc(var(--spacing-unit) * 4); /* 增加顶部内边距 */
+            padding-top: calc(var(--spacing-unit) * 4); 
             padding-bottom: calc(var(--spacing-unit) * 4);
         }
 
-        .fullscreen-nav {
+        /* 时间轴容器，用于垂直线 */
+        .timeline {
+            position: relative; /* 用于 ::before 绝对定位 */
+            padding-left: 60px; /* 为垂直线和点留出空间 */
+            gap: 0; 
+            margin-top: 30px; 
+        }
+
+        /* 移除原有的主垂直虚线 */
+        .timeline::before {
+            content: none; /* 移除原有的连续垂直线 */
+        }
+
+        /* 修改每个项目的点标记为文字区域 */
+        .timeline-item::before {
+            content: none; /* 不显示原有的点 */
+        }
+
+        /* 新增：时间轴项目中的文字区域样式 */
+        .timeline-point-text {
+            position: absolute;
+            left: -40px; /* 与原点位置对齐 */
+            top: 20px; /* 与原点位置对齐 */
+            width: 14px; /* 与原点宽度相同 */
+            height: 14px; /* 与原点高度相同 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1 em; /* 调整字体大小以适应 */
+            color: var(--text-color); /* 文字颜色 */
+            border-radius: 50%; /* 保持圆形 */
+            z-index: 1;
+            box-sizing: border-box; /* 确保内边距和边框包含在宽度和高度内 */
+            padding: 2px; /* 增加内边距，防止文字溢出 */
+        }
+
+        /* 添加垂直连接线，连接点与点 */
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: -33.5px; /* 与点的中心对齐 */
+            top: 27px; /* 从当前点的中心开始 */
+            /* height 保持不变 */
+            height: calc(100% - 27px); /* 高度为项目高度减去点的高度 */
+            width: 2px; /* 线的宽度 */
+            background-color: var(--primary-color);
+            border-left: none; /* 移除虚线样式，变为实线 */
+            z-index: 0;
+        }
+
+        /* 时间轴项目样式，用于新布局 */
+        .timeline-item {
+            position: relative; /* 用于 ::before 和 ::after 绝对定位 */
+            display: flex;
+            justify-content: space-between; 
+            align-items: flex-start; /* 内容顶部对齐 */
+            padding: 15px 0; /* 每个项目的垂直内边距 */
+            margin-left: 0; /* 移除左外边距 */
+            border-bottom: 1px solid var(--border-color); /* 分隔线 */
+            gap: 20px; 
+            background: transparent !important; /* 确保无背景 */
+            box-shadow: none !important; /* 移除阴影 */
+            transition: none !important; /* 移除过渡 */
+        }
+        
+        /* 时间轴项目无悬停变换或阴影 */
+        .timeline-item:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* 最后一个项目无边框 */
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+  
+
+  
+        /* 文本和图片的主内容区域 */
+        .timeline-main-content {
+            flex-grow: 1; /* 允许内容占用可用空间 */
+            min-width: 0; /* 防止内容过宽时 flex 项目溢出 */
+        }
+
+        /* 事件标题样式 */
+        .timeline-main-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1em; 
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* 事件描述样式 */
+        .timeline-main-content > p {
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+            margin: 0 0 10px 0; 
+            line-height: 1.5;
+        }
+        
+        /* 右侧日期样式 */
+        .timeline-date, 
+        .timeline-date-right {
+            min-width: 120px; /* 日期固定宽度 */
+            text-align: right;
+            color: var(--secondary-text-color);
+            font-size: 0.85em;
+            padding-top: 2px; /* 与内容起始对齐 */
+            font-weight: normal; /* 覆盖粗体 */
+        }
+
+        /* 图片行样式，用于扇形/重叠效果 */
+        .timeline-image-row,
+        .timeline-photos {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            min-height: 140px;
+        }
+
+        .timeline-image-row img,
+        .timeline-photos img {
+            object-fit: cover;
+            border: 4px solid white;
+            border-radius: 2px;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+            margin-left: -25px;
+            position: relative;
+            transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+
+        /* 图片版式样式 */
+        .timeline-image-row img.img-square,
+        .timeline-photos img.img-square {
+            width: 100px;
+            height: 100px;
+        }
+
+        .timeline-image-row img.img-landscape,
+        .timeline-photos img.img-landscape {
+            width: 140px;
+            height: 84px;
+        }
+
+        .timeline-image-row img.img-portrait,
+        .timeline-photos img.img-portrait {
+            width: 84px;
+            height: 140px;
+        }
+
+        /* 行中第一张图片无负外边距 */
+        .timeline-image-row img:first-child,
+        .timeline-photos img:first-child {
+            margin-left: 0;
+        }
+
+        /* 由 JS 控制的悬停状态新类 */
+        .timeline-image-row img.image-hovered,
+        .timeline-photos img.image-hovered {
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        /* .timeline-content img 的备用样式，如果仍在其他地方使用 */
+        .timeline-content img {
+            max-width: 100%; 
+            height: auto;
+            border-radius: 8px; 
+            margin-top: 10px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column; /* 垂直堆叠内容和日期 */
+                align-items: flex-start;
+                gap: 5px; /* 堆叠时减小间距 */
+            }
+            .timeline-date-right {
+                text-align: left; /* 堆叠时日期左对齐 */
+                padding-top: 0;
+                margin-top: 5px; /* 内容和日期之间的空间 */
+            }
+            .timeline-image-row,
+            .timeline-photos {
+                justify-content: flex-start;
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .timeline-image-row img,
+            .timeline-photos img {
+                margin-left: 0;
+                margin-right: 10px;
+            }
+            .timeline-image-row img:first-child,
+            .timeline-photos img:first-child {
+                margin-left: 0;
+            }
+        }
+        
+        /* 模态框样式 */
+        /* 模态框样式 */
+        .image-modal {
             display: none;
             position: fixed;
             top: 0;
-            bottom: 0;
-            width: 100px;
-            z-index: 9999;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .fullscreen-nav:hover {
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .fullscreen-nav.prev {
             left: 0;
-        }
-
-        .fullscreen-nav.next {
-            right: 0;
-        }
-
-        .fullscreen-nav::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            border-top: 3px solid white;
-            border-right: 3px solid white;
-        }
-
-        .fullscreen-nav.prev::after {
-            left: 35px;
-            transform: translateY(-50%) rotate(-135deg);
-        }
-
-        .fullscreen-nav.next::after {
-            right: 35px;
-            transform: translateY(-50%) rotate(45deg);
-        }
-
-        /* 添加浏览器前缀支持 */
-        :fullscreen .fullscreen-nav,
-        :-webkit-full-screen .fullscreen-nav,
-        :-moz-full-screen .fullscreen-nav,
-        :-ms-fullscreen .fullscreen-nav {
-            display: block;
-        }
-
-        /* 确保按钮在全屏模式下可见 */
-        .fullscreen-nav {
-            pointer-events: auto;
-            opacity: 0.7;
-        }
-
-        .fullscreen-nav:hover {
-            opacity: 1;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
         /* 模态框样式 */
-        /*
-        .modal {
-            /* display: none; /* 默认隐藏 - 由JS控制 */ */
-            /*            position: fixed; /* 固定位置 */
-            /*            z-index: 10000; /* 置于顶层 */
-            /*            left: 0;*/
-            /*            top: 0;*/
-            /*            width: 100%; /* 全宽 */
-            /*            height: 100%; /* 全高 */
-            /*            /* overflow: auto; /* 允许滚动 - 在全屏模态框下不需要滚动 */ */ */
-            /*            background-color: rgba(0,0,0,0.9); /* 半透明黑色背景 */
-            /*            display: flex; /* 使用flex布局 */
-            /*            justify-content: center; /* 水平居中内容 */
-            /*            align-items: center; /* 垂直居中内容 */
-            /*            flex-direction: column; /* 使内容垂直堆叠 */
-            /*        }
+        .modal-content-wrapper {
+            position: relative;
+            width: 800px; /* 固定宽度 */
+            height: 600px; /* 固定高度 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            background-color: var(--card-background); /* 使用CSS变量替代白色背景 */
+            border-radius: 0; /* 方角边框 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
 
-            /* 模态框内容容器样式 */
-            /*
-            .modal-content-container {
-            /*            position: relative; /* 用于绝对定位导航按钮 */
-            /*            max-width: 90%; /* 最大宽度 */
-            /*            max-height: 90%; /* 最大高度 */
-            /*            display: flex; /* 使用 Flexbox 布局 */
-            /*            align-items: center; /* 垂直居中图片和按钮 */
-            /*            justify-content: center; /* 水平居中图片和按钮 */
-            /*            flex-grow: 1; /* 允许容器填充可用空间 */
-            /*        }
+        .modal-content-wrapper.active {
+            transform: scale(1);
+            opacity: 1;
+        }
 
-            /* 模态框图片样式 */
-            /*
-            .modal-content {
-            /*            margin: auto; /* 图片居中 */
-            /*            display: block;*/
-            /*            max-width: 100%; /* 最大宽度 */
-            /*            max-height: 80vh; /* 最大高度，避免超出屏幕 */
-            /*            object-fit: contain; /* 保持图片比例 */
-            /*        }
+        /* 图片切换动画 */
+        /* 删除以下图片切换动画相关代码 */
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutLeft {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(-100%); opacity: 0; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.3s forwards;
+        }
+        
+        .slide-out-left {
+            animation: slideOutLeft 0.3s forwards;
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.3s forwards;
+        }
+        
+        .slide-out-right {
+            animation: slideOutRight 0.3s forwards;
+        }
+        
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 90%;
+            overflow: hidden;
+            background-color: var(--card-background); /* 使用CSS变量替代白色背景 */
+        }
 
-            /* 关闭按钮样式 */
-            /*
-            .close {
-            /*            position: absolute;*/
-            /*            top: 15px;*/
-            /*            right: 35px;*/
-            /*            color: #f1f1f1;*/
-            /*            font-size: 40px;*/
-            /*            font-weight: bold;*/
-            /*            transition: 0.3s;*/
-            /*            z-index: 10001; /* 确保在模态框上方 */
-            /*        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            position: absolute;
+            transition: none; /* 移除过渡，使用动画代替 */
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.3s forwards;
+        }
+        
+        .slide-out-left {
+            animation: slideOutLeft 0.3s forwards;
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.3s forwards;
+        }
+        
+        .slide-out-right {
+            animation: slideOutRight 0.3s forwards;
+        }
+        
+        .modal-image-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 90%;
+            overflow: hidden;
+            background-color: var(--card-background); /* 使用CSS变量替代白色背景 */
+        }
 
-            /*
-            .close:hover,
-            /*        .close:focus {
-            /*            color: #bbb;*/
-            /*            text-decoration: none;*/
-            /*            cursor: pointer;*/
-            /*        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 确保图片完整显示 */
+        }
 
-            /* 导航按钮样式 */
-            /*
-            .modal .prev,
-            /*        .modal .next {
-            /*            cursor: pointer;*/
-            /*            position: absolute;*/
-            /*            top: 50%;*/
-            /*            width: auto;*/
-            /*            padding: 16px;*/
-            /*            margin-top: -50px;*/
-            /*            color: white;*/
-            /*            font-weight: bold;*/
-            /*            font-size: 20px;*/
-            /*            transition: 0.6s ease;*/
-            /*            border-radius: 0 3px 3px 0;*/
-            /*            user-select: none;*/
-            /*            -webkit-user-select: none;*/
-            /*        }
+        /* 竖版图片特殊处理 */
+        .modal-image.portrait {
+            max-height: 100%;
+            width: auto;
+        }
 
-            /* Next button */
-            /*
-            .modal .next {
-            /*            right: 0;*/
-            /*            border-radius: 3px 0 0 3px;*/
-            /*        }
+        .modal-caption {
+            color: var(--text-color); /* 使用CSS变量替代深色文字 */
+            text-align: center;
+            padding: 10px 0;
+            font-size: 16px;
+            width: 100%;
+            background-color: var(--card-background); /* 使用CSS变量替代白色背景 */
+        }
 
-            /* On hover, add a black background color with a little bit see-through */
-            /*
-            .modal .prev:hover,
-            /*        .modal .next:hover {
-            /*            background-color: rgba(0,0,0,0.8);
-            /*        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--text-color); /* 使用CSS变量替代深色关闭按钮 */
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
+            z-index: 1002;
+        }
 
-            /* 图像描述文本样式 */
-            /*
-            .image-description {
-            /*            color: white;*/
-            /*            font-size: 16px;*/
-            /*            margin-top: 20px;*/
-            /*            text-align: center;*/
-            /*        }
-            */
-        </style>
-        <script src="https://unpkg.com/feather-icons"></script>
-    </head>
-    <body class="fade-in">
-        <header class="navbar">
-            <div class="container">
-                <a href="index.html" class="logo">
-                    <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
-                </a>
-                <div class="nav-links-container">
-                    <nav>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="blog.html">Geek</a></li>
-                            <li><a href="timeline.html" class="active">Timeline</a></li>
-                        </ul>
-                    </nav>
-                </div>
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color); /* 使用CSS变量替代深色导航按钮 */
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
+            z-index: 1002;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--card-background); /* 使用CSS变量替代白色背景 */
+            opacity: 0.7; /* 保持半透明效果 */
+            border-radius: 0; /* 方角导航按钮 */
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .modal-nav:hover {
+            opacity: 0.9; /* 悬停时增加不透明度 */
+        }
+
+        .modal-prev {
+            left: 10px;
+        }
+
+        .modal-next {
+            right: 10px;
+        }
+
+        .modal-nav.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* 防止模态框打开时页面滚动 */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* 视频和音频容器样式 */
+        .timeline-media-container {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .timeline-video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .timeline-audio {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px 0;
+        }
+
+        /* 视频和音频标题样式 */
+        .media-title {
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+            margin: 5px 0;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .timeline-video,
+            .timeline-audio {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="fade-in">
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blog.html">Geek</a></li>
+                        <li><a href="timeline.html" class="active">Timeline</a></li>
+                    </ul>
+                </nav>
             </div>
-        </header>
-        <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode">
-        </button>
-        <section class="timeline-section">
-            <div class="container">
-                <h1>时间轴</h1>
-                <p>在这里，你可以看到我生活中的主要更新和变化。</p>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025年5月28日</div>
-                        <div class="timeline-content">
-                            <h3>Cursor，我恨你</h3>
-                            <p>个人网站在不停完善，无限进步！</p>
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_02-03-16.png" alt="动态图片 1" style="--rotation: -10; --z-index: 4;">
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_02-03-31.png" alt="动态图片 2" style="--rotation: 8; --z-index: 3;">
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_02-03-46.png" alt="动态图片 3" style="--rotation: -5; --z-index: 2;">
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_02-04-55.png" alt="动态图片 4" style="--rotation: 15; --z-index: 1;">
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025年5月27日</div>
-                        <div class="timeline-content">
-                            <h3>个人网站已经准备就绪</h3>
-                            <p>经过不懈努力，个人网站终于完成啦！</p>
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_01-45-55.png" alt="个人网站完成截图" style="--rotation: 5; --z-index: 3;">
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-27_02-34-53.png" alt="个人网站完成截图" style="--rotation: -8; --z-index: 2;">
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%20-%20visual%20selection.png" alt="个人网站完成截图" style="--rotation: 12; --z-index: 1;">
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025年5月26日</div>
-                        <div class="timeline-content">
-                            <h3>加班加点制作个人网站中</h3>
-                            <p>正在努力完善个人网站，敬请期待！</p>
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-26_23-56-40.png" alt="个人网站制作截图" style="--rotation: -3;">
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025年5月20日</div>
-                        <div class="timeline-content">
-                            <h3>域名迁移到Cloudflare</h3>
-                            <p>最终还是把域名转移到了Cloudflare上 😊</p>
-                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E4%B8%8B%E8%BD%BD.png" alt="Cloudflare示例图片" style="--rotation: 7;">
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025年4月23日</div>
-                        <div class="timeline-content">
-                            <h3>新域名上线 — 新的开始</h3>
-                            <p>欢迎来到 yxblog.dpdns.org</p>
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </header>
+
+    <section class="timeline-section">
+        <div class="container">
+            <h1>TimeLine</h1>
+            <p class="timeline-intro-text">Here, you can see the main updates and changes in my life.</p>
+            <p class="timeline-intro-text">在这里，你可以看到我生活中的主要更新和变化。</p>
+            <div class="timeline">
+
+                <!-- 修改时间轴项的HTML结构 - 移除水平连接线 -->
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🎵</div>
+                    <div class="timeline-media-container"> 
+                    <div class="timeline-main-content">                    
+                        <h3>【每日一曲】今日推荐</h3>                    
+                        <p>“坏了，被这首歌拿捏住了。”《Call of Silence》</p>                                 
+                        <audio class="timeline-audio" controls>                   
+                            <source src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/call%20of%20silence.mp3" type="audio/mpeg">                   
+                            的浏览器不支持音频标签。                   
+                            </audio>                    
+                            <p class="media-title">Call Of Silence原版</p>                    
+                    </div>                 
+                </div>                 
+                    <div class="timeline-date-right">2025年6月6日</div>               
             </div>
-        </section>
-        <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
-            <i data-feather="arrow-up"></i>
-        </button>
-        <div class="fullscreen-nav prev" id="prevButton"></div>
-        <div class="fullscreen-nav next" id="nextButton"></div>
-        <script>
-        feather.replace();
-        </script>
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.classList.add('fade-in');
-            setTimeout(() => {
-                document.body.classList.add('active');
-            }, 100);
+                     
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">😦</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-media-container">
+                    <div class="timeline-main-content">
+                        <h3> AI technology is going crazy</h3>
+                        <p>现在的Text to Image对于AI甚至Text to Video已经是小儿科了 </p>
+                        <p>效果太真实了，简直无法分辨</p>
+                        <p>Jason Tatum和Lebron James那张太搞笑了（没有故意引战哈~）</p>
+                        <p>Kobe R.I.P.🏛</p>
+                        <video class="timeline-video" controls>
+                             <source src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtvw5qdrf8xr0kgtj5a31zfv_task_01jtvw5qdrf8xr0kgtj5a31zfv_genid_7480ba4c-f471-41bb-89e2-64cb3e44215e_25_05_10_01_15_213651_videos_00000_63045460_source.mp4" type="video/mp4">
+                             您的浏览器不支持视频标签。
+                            </video>
+                            <p class="media-title">CHIP-LIGHT</p>
+                        </div>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtv53gb8er9aj31wbzhw8tv0_1746815619_img_1.webp" alt="AI 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtvr071mfxn856tcnac6cta8_1746835453_img_1.webp" alt="AI 2">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtvvekhtff5ahgtspyzf0n6q_1746839043_img_0.webp" alt="AI 3">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtt0e92yftjbq1jep02dfr9y_1746777203_img_2.webp" alt="AI 4">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250605202036_147.jpg" alt="AI 5">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jttb1f9ee3t8f8q6x96ja7nq_1746788283_img_1.webp" alt="AI 6">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/assets_task_01jtsypfxye7ab0ycnncaddj7e_1746775343_img_0.webp" alt="AI 7">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年6月</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🚀</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> Keep going</h3>
+                        <p>生物模考结束-预估57分😁 </p>
+                        <p>果茶+作业</p>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250605202036_145.jpg" alt="KG 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20250605202036_146.jpg" alt="KG 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年6月5日</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">😠</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> 作为一个IT的巨大耻辱</h3>
+                        <p>事情的起因是：由于我的Personal Website是前端中的原生开发，即为（HTML/CSS/JavaScript） </p>
+                        <p>我在更新我的Personal Website时,发现timeline中的模态框无法显示，而我对原生开发并不熟悉，于是会使用AI协助我完成代码</p>
+                        <p>这里，我要吐槽一下ByteDance的Trae，没有Cursor智能，在Cursor中，AI会帮你修改代码并自动放置在合适的位置，而Trae没有集成，导致Application会随意的将代码放置</p>
+                        <p>于是，在script渲染完模态框后，HTML的摆放不正确，导致点击浏览时，HTML没有先一步预览，而JS在代码error时不会进行下一步，而是停止，导致模态框无法显示，我debug了一晚上，终于发现了问题所在</p>
+                        <p>所有，照目前的状态来看，如果经济实力允许，建议选择Cursor，我选择Trae的原因纯粹是它可以用Claude 4 Sonnet，我奉劝ByteDance早日提高Application与AI的一体化，否则，如果AI排队时间长，用户只会不增反降</p>
+                        <p>特别鸣谢：Google Gemini 2.5 Flash</p>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-06-05_00-13-35.png" alt="TC compare 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-06-05_00-13-13.png" alt="TC compare 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年6月4日</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🎁</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> Technoblade-Happy Birthday!!!</h3>
+                        <p>愿天堂有吃不完的马铃薯，安息。</p>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-06-02_16-28-59.png" alt="Technoblade-Happy 1">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年6月2日</div>
+                </div>
 
-            // 获取所有图片
-            const allImages = Array.from(document.querySelectorAll('.timeline-content img'));
-            let currentImageIndex = -1;
+                <div class="timeline-item">
+                    <div class="timeline-point-text">😭</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> 物理-PHYSICS，请爱我一次</h3>
+                        <p>我勒个大物理呀，压强加浮力，根本不会呀！！！</p>
+                    </div>
+                    <div class="timeline-date-right">2025年6月1日</div>
+                </div>
 
-            // 获取导航按钮
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
+                <div class="timeline-item">
+                    <div class="timeline-point-text">😅</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> "极具风格"的时间轴</h3>
+                        <p>我的黑历史...不、来时路和屎山timeline.html代码</p>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-31_20-53-01.png" alt="Damn timeline 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-31_21-02-04.png" alt="Damn timeline 2">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-31_21-02-44.png" alt="Damn timeline 3">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年5月</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-point-text">😱</div> <!-- 新增的文字区域 -->                    
+                    <div class="timeline-main-content">
+                        <h3> 地理没写完明天要查怎么办-啊啊啊吧😣</h3>
+                        <p>连续熬夜三天</p>
+                    </div>
+                    <div class="timeline-date-right">2025年5月29日</div>
+                </div>
+                
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">💔</div> <!-- 新增的文字区域 -->
+                    <div class="timeline-main-content">
+                        <h3> Cursor，我恨你</h3>
+                        <p>个人网站在不停完善，无限进步！</p>
+                        <div class="timeline-image-row">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_02-03-16.png" alt="Make progress">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年5月28日</div>
+                </div>
 
-            // 图片点击事件
-            allImages.forEach((img, index) => {
-                img.addEventListener('click', function() {
-                    // 阻止默认的全屏行为
-                    // e.preventDefault(); // 如果需要传递事件对象e，可以在函数参数中添加
-                    currentImageIndex = index;
-                    if (document.fullscreenEnabled) {
-                        if (!document.fullscreenElement) {
-                            img.requestFullscreen().catch(err => {
-                                console.log(`全屏请求失败: ${err.message}`);
-                            });
-                        } else {
-                            document.exitFullscreen();
-                        }
-                    } else if (img.webkitRequestFullscreen) {
-                        img.webkitRequestFullscreen();
-                    }
-                });
-            });
+                <div class="timeline-item">
+                    <div class="timeline-point-text">✅</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> 个人网站已经准备就绪</h3>
+                        <p>经过不懈努力，个人网站终于完成啦！</p>
+                        <div class="timeline-image-row">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-28_01-45-55.png" alt="Website 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-27_02-34-53.png" alt="Website 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年5月27日</div>
+                </div>
 
-            // 鼠标滚轮事件
-            document.addEventListener('wheel', function(e) {
-                if (document.fullscreenElement) {
-                    e.preventDefault();
-                    if (e.deltaY > 0) {
-                        showNextImage();
-                    } else {
-                        showPreviousImage();
-                    }
-                }
-            }, { passive: false });
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🌐</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> 域名迁移到Cloudflare</h3>
+                        <p>最终还是把域名转移到了Cloudflare上 😊</p>
+                        <div class="timeline-image-row">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-31_20-58-13.png" alt="Cloudflare">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年5月20日</div>
+                </div>
 
-            // 键盘方向键事件
-            document.addEventListener('keydown', function(e) {
-                if (document.fullscreenElement) {
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        showNextImage();
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        showPreviousImage();
-                    }
-                }
-            });
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🎉</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> 新域名上线 — 新的开始</h3>
+                        <p>欢迎来到 yxblog.dpdns.org</p>
+                    </div>
+                    <div class="timeline-date-right">2025年4月23日</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🎉</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> 我的第一个域名-前端开发的开始</h3>
+                        <p>70元大洋买到的快乐与专注，好像也不是很贵了...</p>
+                        <div class="timeline-photos">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-06-01_21-48-00.png" alt="domin 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-06-01_21-39-50.png" alt="domin 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2025年3月8日</div>
+                </div>
 
-            // 导航按钮点击事件
-            prevButton.addEventListener('click', showPreviousImage);
-            nextButton.addEventListener('click', showNextImage);
+                <div class="timeline-item">
+                    <div class="timeline-point-text">🏫</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> 上小学啦</h3>
+                        <p>第一天上学还是蛮紧张的😰</p>
+                        <div class="timeline-photos"> 
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_20170404_145255.jpg" alt="childhood 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_20170519_191905.jpg" alt="childhood 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2017年</div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-point-text">👶</div> <!-- 新增的文字区域 -->                 
+                    <div class="timeline-main-content">
+                        <h3> Born — 我出生于CN 中国的西安</h3>
+                        <p>家中的独生子女，我有两个表姐</p>
+                        <div class="timeline-photos"> 
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/IMG_20131207_173812.jpg" alt="Birth 1">
+                            <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PixPin_2025-05-31_00-23-10.png" alt="Birth 2">
+                        </div>
+                    </div>
+                    <div class="timeline-date-right">2011年8月9日</div>
+                </div>
+    </section>
 
-            // 显示下一张图片
-            function showNextImage() {
-                if (currentImageIndex < allImages.length - 1) {
-                    currentImageIndex++;
-                    allImages[currentImageIndex].requestFullscreen().catch(err => {
-                        console.log(`全屏请求失败: ${err.message}`);
-                    });
-                }
+    <!-- 图片模态框 -->
+    <div id="image-modal" class="image-modal">
+        <div id="modal-content-wrapper" class="modal-content-wrapper">
+            <button id="modal-close" class="modal-close">&times;</button>
+            <div class="modal-image-container">
+                <img id="modal-image" class="modal-image" src="" alt="">
+                <button id="modal-prev" class="modal-nav modal-prev">&lt;</button>
+                <button id="modal-next" class="modal-nav modal-next">&gt;</button>
+            </div>
+            <div id="image-modal-caption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <script>
+    // 为时间轴点添加文字
+    document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有时间轴项
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    // 为每个时间轴项的点添加文字（使用索引+1作为文字）
+    timelineItems.forEach((item, index) => {
+    // 使用伪元素的content属性无法直接通过JS修改
+    // 创建一个数字标签并添加到时间轴项
+    const numberLabel = document.createElement('div');
+    numberLabel.className = 'timeline-number';
+    numberLabel.textContent = (index + 1).toString(); // 使用索引+1作为文字
+    item.appendChild(numberLabel);
+    });
+    });
+        document.body.classList.add('fade-in');
+        setTimeout(() => {
+            document.body.classList.add('active');
+        }, 100);
+
+        // 获取模态框元素
+        const imageModal = document.getElementById('image-modal');
+        const modalContentWrapper = document.getElementById('modal-content-wrapper');
+        // 将 const modalImage 改为 let modalImage
+        let modalImage = document.getElementById('modal-image');
+        const modalCloseButton = document.getElementById('modal-close');
+        const modalPrev = document.getElementById('modal-prev');
+        const modalNext = document.getElementById('modal-next');
+        const imageModalCaption = document.getElementById('image-modal-caption');
+
+        // 当前图片组和索引
+        let currentImageGroup = [];
+        let currentImageIndex = 0;
+
+        // 获取时间轴中所有可点击的图片
+        const clickableImages = document.querySelectorAll('.timeline-image-row img, .timeline-photos img');
+
+        let hoveredImage = null; // 跟踪当前悬停的图片
+        let originalZIndexMap = new Map(); // 存储每张图片的原始 z-index
+        let originalTransformMap = new Map(); // 存储每张图片的原始 transform 字符串
+
+        /**
+         * 根据图片自然尺寸判断其版式并添加相应的CSS类。
+         * @param {HTMLImageElement} img - 要处理的图片元素。
+         */
+        function setImageOrientationClass(img) {
+            // 检查图片是否已完全加载
+            if (img.complete) {
+                applyClass();
+            } else {
+                // 如果图片未加载，则等待其加载完成
+                img.onload = applyClass;
+                img.onerror = () => {
+                    console.error('图片加载失败:', img.src);
+                    // 可以添加一个默认类或样式来处理加载失败的图片
+                    img.classList.add('img-square'); // 默认给一个正方形，防止布局问题
+                };
             }
 
-            // 显示上一张图片
-            function showPreviousImage() {
-                if (currentImageIndex > 0) {
-                    currentImageIndex--;
-                    allImages[currentImageIndex].requestFullscreen().catch(err => {
-                        console.log(`全屏请求失败: ${err.message}`);
-                    });
-                }
-            }
+            function applyClass() {
+                const width = img.naturalWidth;
+                const height = img.naturalHeight;
 
-            // 退出全屏时重置索引
-            document.addEventListener('fullscreenchange', function() {
-                if (!document.fullscreenElement) {
-                    currentImageIndex = -1;
-                }
-            });
-
-            // --- 模态框相关 JavaScript --- //
-
-            // 获取模态框元素
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const closeModalButton = document.getElementById('closeModal');
-            const modalPrevButton = document.getElementById('modalPrevButton');
-            const modalNextButton = document.getElementById('modalNextButton');
-
-            // 打开模态框
-            function openModal(src, index) {
-                modal.style.display = "flex"; // 使用flex布局以居中内容
-                modalImage.src = src;
-                currentImageIndex = index; // 更新当前图片索引
-                updateNavigationButtons(); // 更新导航按钮状态
-            }
-
-            // 关闭模态框
-            function closeModal() {
-                modal.style.display = "none";
-            }
-
-            // 更新模态框图片
-            function updateModalImage(src) {
-                modalImage.src = src;
-                updateNavigationButtons(); // 更新导航按钮状态
-            }
-
-            // 更新导航按钮状态 (显示/隐藏)
-            function updateNavigationButtons() {
-                if (currentImageIndex <= 0) {
-                    modalPrevButton.style.display = "none";
+                // 判断图片版式并添加对应类
+                if (width === height) {
+                    img.classList.add('img-square');
+                } else if (width > height) {
+                    img.classList.add('img-landscape');
                 } else {
-                    modalPrevButton.style.display = "block";
+                    img.classList.add('img-portrait');
                 }
-                if (currentImageIndex >= allImages.length - 1) {
-                    modalNextButton.style.display = "none";
-                } else {
-                    modalNextButton.style.display = "block";
-                }
+                // 移除onload监听器，避免重复调用
+                img.onload = null;
             }
+        }
 
-            // 模态框导航：显示下一张图片
-            modalNextButton.addEventListener('click', function() {
-                if (currentImageIndex < allImages.length - 1) {
-                    currentImageIndex++;
-                    updateModalImage(allImages[currentImageIndex].src);
-                }
+        // 根据图片在行/组中的顺序初始化所有图片的 z-index 和随机旋转
+        document.querySelectorAll('.timeline-image-row, .timeline-photos').forEach(container => {
+            const imagesInContainer = container.querySelectorAll('img');
+            const totalImages = imagesInContainer.length;
+            imagesInContainer.forEach((img, index) => {
+                // 设置图片版式类
+                setImageOrientationClass(img);
+
+                // z-index 递减，因此最左侧的图片默认在顶部 (即 z-index 越大)
+                const initialZIndex = (totalImages - 1) - index; 
+                img.style.zIndex = initialZIndex.toString();
+                originalZIndexMap.set(img, initialZIndex.toString()); // 存储原始 z-index
+
+                // 设置随机旋转，并确保 transform 包含 scale(1) 和 translateX(0)
+                const randomRotate = Math.random() * 20 - 10; // -10deg to +10deg
+                const initialTransform = `scale(1) rotate(${randomRotate}deg) translateX(0px)`;
+                img.style.transform = initialTransform;
+                originalTransformMap.set(img, initialTransform); // 存储原始 transform 字符串
             });
-
-            // 模态框导航：显示上一张图片
-            modalPrevButton.addEventListener('click', function() {
-                if (currentImageIndex > 0) {
-                    currentImageIndex--;
-                    updateModalImage(allImages[currentImageIndex].src);
-                }
-            });
-
-            // 点击关闭按钮关闭模态框
-            closeModalButton.addEventListener('click', closeModal);
-
-            // 点击模态框外部区域关闭模态框
-            window.addEventListener('click', function(event) {
-                if (event.target == modal) {
-                    closeModal();
-                }
-            });
-
-            // 修改键盘事件处理，使其控制模态框中的图片切换
-            document.removeEventListener('keydown', function(e) {
-                if (document.fullscreenElement) {
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        showNextImage();
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        showPreviousImage();
-                    }
-                }
-            }); // 移除旧的键盘事件监听器
-
-            document.addEventListener('keydown', function(e) {
-                if (modal.style.display === "flex") { // 只在模态框显示时触发
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        modalNextButton.click(); // 触发下一张按钮点击事件
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        modalPrevButton.click(); // 触发上一张按钮点击事件
-                    } else if (e.key === 'Escape') { // 按下ESC键关闭模态框
-                        closeModal();
-                    }
-                }
-            });
-
         });
-        </script>
-        <script src="script.js"></script>
-    </body>
-</html> 
+
+        clickableImages.forEach((img) => {
+            // 添加 mouseenter 事件监听器，用于动态样式
+            img.addEventListener('mouseenter', function() {
+                // 如果之前有悬停的图片且不是当前图片
+                if (hoveredImage && hoveredImage !== this) {
+                    const prevHovered = hoveredImage;
+                    // 立即从之前的图片中移除 hover 类，开始缩回动画
+                    prevHovered.classList.remove('image-hovered');
+                    // 设置缩回动画的过渡效果为"掉回去"
+                    prevHovered.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)'; /* 减慢缩回动画 */
+                    prevHovered.style.transform = originalTransformMap.get(prevHovered);
+                    // 立即重置之前图片的 z-index，使其缩回动画在下方完成
+                    prevHovered.style.zIndex = originalZIndexMap.get(prevHovered); 
+                }
+
+                // 设置放大动画的过渡效果为平滑
+                this.style.transition = 'transform 0.15s ease-out'; /* 加快放大动画 */
+                this.classList.add('image-hovered');
+
+                // 设置悬停时的 transform：放大，旋转至0度，并向右平移
+                this.style.transform = `scale(1.2) rotate(0deg) translateX(30px)`;
+
+                hoveredImage = this; // 将当前图片设置为悬停图片
+            });
+
+            // 添加 mouseleave 事件监听器，用于立即缩回和图层管理
+            img.addEventListener('mouseleave', function() {
+                const currentLeavingImage = this;
+                // 仅当此图片是当前跟踪的悬停图片时才处理
+                if (hoveredImage === currentLeavingImage) {
+                    // 设置缩回动画的过渡效果为"掉回去"
+                    currentLeavingImage.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)'; /* 减慢缩回动画 */
+                    currentLeavingImage.classList.remove('image-hovered');
+                    currentLeavingImage.style.transform = originalTransformMap.get(currentLeavingImage);
+                    currentLeavingImage.style.zIndex = originalZIndexMap.get(currentLeavingImage); 
+
+                    // 监听 transform 过渡结束事件
+                    currentLeavingImage.addEventListener('transitionend', function handler(event) {
+                        if (event.propertyName === 'transform') {
+                            currentLeavingImage.removeEventListener('transitionend', handler);
+                        }
+                    }, { once: true });
+
+                    if (hoveredImage === currentLeavingImage) {
+                        hoveredImage = null; // 清除悬停图片引用
+                    }
+                }
+            });
+
+            img.addEventListener('click', function() {
+                // 确定点击图片所属的图片组
+                const parentDiv = this.closest('.timeline-image-row') || this.closest('.timeline-photos');
+                currentImageGroup = Array.from(parentDiv.querySelectorAll('img'));
+                currentImageIndex = currentImageGroup.indexOf(this);
+                
+                // 判断图片方向
+                const isPortrait = this.naturalHeight > this.naturalWidth;
+                
+                // 打开模态框
+                openModal(this, isPortrait);
+            });
+        });
+
+        // 打开模态框的函数
+        function openModal(imgElement, isPortrait) {
+            imageModal.style.display = 'flex'; // 使模态框容器可见
+            modalImage.src = imgElement.src;
+            modalImage.alt = imgElement.alt;
+            
+            // 根据图片方向设置类
+            if (isPortrait) {
+                modalImage.classList.add('portrait');
+            } else {
+                modalImage.classList.remove('portrait');
+            }
+            
+            imageModalCaption.innerHTML = imgElement.alt; // 将 alt 文本作为标题显示
+            updateModalNavButtons();
+            document.body.classList.add('modal-open'); // 防止主体滚动
+
+            // 触发模态框内容动画
+            requestAnimationFrame(() => {
+                modalContentWrapper.classList.add('active');
+            });
+        }
+
+        // 关闭模态框的函数
+        modalCloseButton.onclick = function() {
+            modalContentWrapper.classList.remove('active'); // 移除 active 类，触发缩回动画
+            // 等待动画完成后再隐藏模态框容器
+            modalContentWrapper.addEventListener('transitionend', function handler() {
+                imageModal.style.display = 'none';
+                document.body.classList.remove('modal-open'); // 允许主体滚动
+                modalContentWrapper.removeEventListener('transitionend', handler); // 移除事件监听器，避免重复触发
+            }, { once: true }); // 使用 once 选项确保事件只触发一次
+        }
+
+        // 点击图片内容包装器外部时关闭模态框
+        imageModal.addEventListener('click', function(event) {
+            // 如果点击的目标是模态框背景层本身
+            if (event.target === imageModal) {
+                modalContentWrapper.classList.remove('active'); // 移除 active 类，触发缩回动画
+                // 等待动画完成后再隐藏模态框容器
+                modalContentWrapper.addEventListener('transitionend', function handler() {
+                    imageModal.style.display = 'none';
+                    document.body.classList.remove('modal-open'); // 允许主体滚动
+                    modalContentWrapper.removeEventListener('transitionend', handler); // 移除事件监听器，避免重复触发
+                }, { once: true }); // Use once option to ensure the event fires only once
+            }
+        });
+
+        // 导航函数
+modalPrev.onclick = function(event) {
+    event.stopPropagation(); // 防止模态框关闭
+    if (currentImageIndex > 0) {
+        currentImageIndex--;
+        updateModalImage(); // 移除方向参数
+    }
+};
+
+modalNext.onclick = function(event) {
+    event.stopPropagation(); // 防止模态框关闭
+    if (currentImageIndex < currentImageGroup.length - 1) {
+        currentImageIndex++;
+        updateModalImage(); // 移除方向参数
+    }
+};
+
+// 更新模态框图片和导航按钮（移除动画）
+function updateModalImage(direction) {
+    if (currentImageGroup.length === 0 || currentImageIndex < 0 || currentImageIndex >= currentImageGroup.length) {
+        console.error("Invalid image group or index.");
+        return;
+    }
+    
+    const img = currentImageGroup[currentImageIndex];
+    
+    // 直接更新图片（无动画）
+    modalImage.src = img.src;
+    modalImage.alt = img.alt;
+    
+    // 判断图片方向
+    const isPortrait = img.naturalHeight > img.naturalWidth;
+    
+    // 根据图片方向设置类
+    if (isPortrait) {
+        modalImage.classList.add('portrait');
+    } else {
+        modalImage.classList.remove('portrait');
+    }
+    
+    imageModalCaption.innerHTML = img.alt;
+    updateModalNavButtons();
+}
+
+// Update navigation button states (disable/enable)
+function updateModalNavButtons() {
+    if (currentImageGroup.length <= 1) {
+        modalPrev.classList.add('disabled');
+        modalNext.classList.add('disabled');
+    } else {
+        modalPrev.classList.toggle('disabled', currentImageIndex === 0);
+        modalNext.classList.toggle('disabled', currentImageIndex === currentImageGroup.length - 1);
+    }
+}
+
+// 键盘导航
+document.addEventListener('keydown', function(e) {
+    if (imageModal.style.display === 'flex') { // Only active when modal is open
+        if (e.key === 'ArrowRight') {
+            if (currentImageIndex < currentImageGroup.length - 1) {
+                currentImageIndex++;
+                updateModalImage(); // 移除方向参数
+            }
+        } else if (e.key === 'ArrowLeft') {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateModalImage(); // 移除方向参数
+            }
+        } else if (e.key === 'Escape') {
+            modalCloseButton.click();
+        }
+    }
+});
+
+// 滚轮导航
+document.addEventListener('wheel', function(e) {
+    if (imageModal.style.display === 'flex') { // If modal is open
+        e.preventDefault(); // Prevent page scrolling when modal is open
+        if (e.deltaY > 0) { // Scroll down, go to next image in modal
+            if (currentImageIndex < currentImageGroup.length - 1) {
+                currentImageIndex++;
+                updateModalImage(); // 移除方向参数
+            }
+        } else { // Scroll up, go to previous image in modal
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateModalImage(); // 移除方向参数
+            }
+        }
+    }
+}, { passive: false });
+
+        function displayDailyQuote() {
+            const quoteText = document.getElementById('quote-text');
+            const quoteFrom = document.getElementById('quote-from');
+            const now = new Date();
+            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            const diff = now - startOfYear;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            
+            const randomIndex = dayOfYear % quotes.length;
+            const quote = quotes[randomIndex];
+
+            quoteText.textContent = quote.text;
+            quoteFrom.textContent = `- ${quote.from}`;
+        }
+
+        displayDailyQuote();
+
+    </script>
+
+    <footer>
+        <div class="container">
+            <div class="daily-quote">
+                <p id="quote-text"></p>
+                <p id="quote-from" class="quote-from"></p>
+            </div>
+            <p>&copy; 2025 Kobe_zyx. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+
+
+    <script src="script.js"></script>
+    <!-- 添加深浅模式切换按钮 -->
+    <button class="theme-toggle" aria-label="切换深浅模式">
+        <img src="svg/ld/light.svg" alt="切换到浅色模式" class="light-icon">
+        <img src="svg/ld/dark.svg" alt="切换到深色模式" class="dark-icon">
+    </button>
+</body>
+</html>
+
+
+
+
+
+
+

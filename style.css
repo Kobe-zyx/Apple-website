@@ -1,40 +1,146 @@
 /* style.css */
 
-/* 基础样式和字体 */
+/* 字体声明 */
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-Thin.ttf') format('truetype');
+    font-weight: 100; /* Thin */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 添加 Lexend-ExtraLight 字体声明 */
+@font-face {
+    font-family: 'Lexend';
+    src: url('fonts/Lexend-ExtraLight.ttf') format('truetype');
+    font-weight: 200; /* Extra Light */
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
+    /* 浅色模式变量 */
+    --background-light: #ffffff;
+    --background-dark: #f5f5f7;
+    --text-color: #1d1d1f;
+    --secondary-text-color: #86868b;
+    --accent-color: #0066cc;
+    --border-color: #d2d2d7;
+    --card-background: #ffffff;
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --hover-color: #f5f5f7;
+    --font-family: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
     /* 亮色模式变量 */
     --primary-color: #007AFF; /* Apple 蓝色 */
-    --text-color: #1D1D1F; /* 深灰色文本 */
-    --secondary-text-color: #6E6E73; /* 浅灰色文本 */
-    --background-light: #F5F5F7; /* 浅背景色 */
-    --background-dark: #FFFFFF; /* 深背景色 (用于卡片、导航栏) */
-    --border-color: #EAEAEA; /* 边框颜色 */
     --link-hover-color: #0066CC; /* 链接悬停色 */
     --shadow-color-light: rgba(0,0,0,0.05); /* 亮模式阴影 */
-    --shadow-color-dark: rgba(0,0,0,0.1); /* 亮模式卡片悬停阴影 */
+    --shadow-color-dark: rgba(0,0,0,0.2); /* 亮模式卡片悬停阴影 - 增加透明度 */
     --button-back-color: #FFFFFF; /* 回到顶部按钮背景色 */
     --button-icon-color: var(--secondary-text-color); /* 回到顶部按钮图标色 */
 
-    --spacing-unit: 8px; /* 定义基础间距单位 */
+    /* 字体变量 - 优先使用 Lexend */
+    --font-main: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-code: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    --font-quote: 'Noto Serif SC', serif;
+
+    --spacing-unit: 6px; /* 定义基础间距单位，减小以增加紧凑感 */
 }
 
-/* 暗色模式变量 */
-body.dark-mode {
-    --primary-color: #0A84FF; /* 暗模式下略亮的蓝色 */
-    --text-color: #F5F5F7; /* 浅灰色文本 */
-    --secondary-text-color: #AAAAAA; /* 更浅的灰色文本 */
-    --background-light: #1C1C1E; /* 深背景色 */
-    --background-dark: #000000; /* 更深的背景色 (用于卡片、导航栏) */
-    --border-color: #303030; /* 暗模式边框颜色 */
-    --link-hover-color: #2F80ED; /* 暗模式链接悬停色 */
-    --shadow-color-light: rgba(0,0,0,0.4); /* 暗模式阴影 */
-    --shadow-color-dark: rgba(0,0,0,0.6); /* 暗模式卡片悬停阴影 */
-    --button-back-color: #1C1C1E; /* 暗模式回到顶部按钮背景色 */
-    --button-icon-color: #AAAAAA; /* 暗模式回到顶部按钮图标色 */
+/* 深色模式变量 */
+[data-theme="dark"] {
+    --background-light: #1a1a1a;
+    --background-dark: #121212;
+    --text-color: #f5f5f7;
+    --secondary-text-color: #a1a1a6;
+    --border-color: #38383c;
+    --card-background: #252525;
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --hover-color: #2c2c2e;
+    --button-back-color: #333333;
+    --button-icon-color: #f5f5f7;
+}
+
+/* 深浅模式切换按钮 */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 10px var(--shadow-color-light);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px var(--shadow-color-dark);
+}
+
+.theme-toggle img {
+    width: 24px;
+    height: 24px;
+}
+
+.theme-toggle .light-icon {
+    display: block; /* 修改为block，在浅色模式下显示太阳图标 */
+}
+
+.theme-toggle .dark-icon {
+    display: none; /* 修改为none，在浅色模式下隐藏月亮图标 */
+}
+
+[data-theme="dark"] .theme-toggle .light-icon {
+    display: none; /* 修改为none，在深色模式下隐藏太阳图标 */
+}
+
+[data-theme="dark"] .theme-toggle .dark-icon {
+    display: block; /* 修改为block，在深色模式下显示月亮图标 */
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-main);
     line-height: 1.6;
     color: var(--text-color); /* 使用变量 */
     margin: 0;
@@ -84,7 +190,8 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-color); /* 使用变量 */
+    font-family: var(--font-heading);
+    color: var(--text-color);
     margin-bottom: calc(var(--spacing-unit) * 3);
     font-weight: 600; /* Apple 风格偏爱中等粗细 */
 }
@@ -104,10 +211,6 @@ p {
     left: 50%; /* 水平居中 */
     transform: translateX(-50%); /* 精确居中 */
     z-index: 1000;
-    /* background-color: var(--background-dark); */ /* 移除背景色 */
-    /* border-bottom: 1px solid var(--border-color); */ /* 移除底部边框 */
-    padding: 0; /* 移除padding */
-    /* transition: transform 0.3s ease; */ /* 移除 transition */
     height: auto; /* 高度自适应内容 */
     width: auto; /* 宽度自适应内容 */
 }
@@ -117,18 +220,20 @@ p {
     justify-content: center; /* 导航链接居中 */
     align-items: center;
     height: 100%;
-    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3); /* 调整内边距 */
-    background-color: var(--background-dark); /* 添加背景色 */
-    border-radius: 30px; /* 添加圆角 */
-    box-shadow: var(--shadow-color-light) 0px 4px 12px; /* 添加阴影 */
-}
-
-.dark-mode .navbar .container {
-     box-shadow: var(--shadow-color-dark) 0px 4px 12px; /* 暗模式阴影 */
+    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+    background-color: var(--background-dark);
+    border-radius: 30px;
+    box-shadow: 0px 4px 12px var(--shadow-color-light);
 }
 
 .navbar .logo {
     display: none; /* 隐藏logo */
+}
+
+.navbar .logo img {
+    height: 100%;
+    width: auto;
+    border-radius: 50%; /* 如果 LOGO 是圆形，可以添加此样式 */
 }
 
 .navbar .nav-links-container {
@@ -141,7 +246,7 @@ p {
 .navbar ul {
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing-unit) * 4); /* 增加间距 */
+    gap: calc(var(--spacing-unit) * 4);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -160,6 +265,7 @@ p {
     text-align: center;
     line-height: 1.2;
     opacity: 0.5;
+    font-family: var(--font-main);
 }
 
 .navbar a:hover {
@@ -173,97 +279,6 @@ p {
     opacity: 1; /* 激活状态完全不透明 */
 }
 
-/* 主题切换按钮样式 - 胶囊按钮 */
-.theme-toggle-button {
-    position: fixed; /* 固定定位 */
-    top: 20px; /* 距离顶部 */
-    right: calc(var(--spacing-unit) * 4); /* 右对齐 */
-    z-index: 1000; /* 确保在其他内容之上 */
-    background-color: var(--background-light); /* 恢复背景色 */
-    border: 1px solid var(--border-color); /* 恢复边框 */
-    border-radius: 50px; /* 恢复圆角为胶囊形状 */
-    width: 45px; /* 恢复宽度 */
-    height: 22px; /* 恢复高度 */
-    display: flex; /* 确保flex布局 */
-    align-items: center;
-    justify-content: space-between; /* 恢复间距 */
-    padding: 0 calc(var(--spacing-unit) * 0.5); /* 恢复内边距 */
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 恢复过渡效果 */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08); /* 恢复阴影 */
-}
-
-.dark-mode .theme-toggle-button {
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2); /* 恢复暗模式阴影 */
-}
-
-.theme-toggle-button::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background-color: var(--primary-color); /* 恢复背景色 */
-    border-radius: 50%;
-    top: 2px;
-    left: 2px; /* 恢复初始位置 */
-    transition: transform 0.3s ease;
-}
-
-.dark-mode .theme-toggle-button::before {
-    transform: translateX(21px); /* 恢复暗模式下的移动 */
-}
-
-.theme-toggle-button i {
-    display: none; /* 隐藏图标 */
-    width: 16px; /* 恢复图标大小 */
-    height: 16px; /* 恢复图标大小 */
-    stroke-width: 2;
-    z-index: 1; /* 确保在滑块之上 */
-    color: var(--secondary-text-color); /* 恢复图标颜色 */
-    transition: color 0.3s ease; /* 恢复过渡效果 */
-}
-
-/* 移除悬停颜色 */
-/*
-.theme-toggle-button:hover i {
-    color: var(--text-color);
-}
-*/
-
-/* 移除图标颜色 */
-/*
-.theme-toggle-button .sun-icon {
-    color: orange;
-}
-
-.theme-toggle-button .moon-icon {
-    color: yellow;
-}
-*/
-
-/* 调整响应式 */
-@media (max-width: 768px) {
-    .navbar {
-        top: 10px; /* 调整小屏幕距离顶部 */
-        left: 10px; /* 调整小屏幕距离左边 */
-        right: 10px; /* 调整小屏幕距离右边 */
-        transform: none; /* 移除居中transform */
-        width: auto; /* 宽度自适应 */
-    }
-    .navbar .container {
-        flex-direction: row; /* 小屏幕下仍然水平排列 */
-        justify-content: space-around; /* 链接平均分布 */
-        padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2); /* 调整小屏幕内边距 */
-    }
-    .navbar ul {
-        gap: calc(var(--spacing-unit) * 2); /* 小屏幕间距 */
-    }
-    .navbar a {
-         padding: 0; /* 移除小屏幕padding */
-         font-size: 0.9em; /* 调整小屏幕字体大小 */
-    }
-}
-
 /* 按钮样式 */
 .button {
     display: inline-block;
@@ -274,6 +289,7 @@ p {
     text-align: center;
     border: none;
     cursor: pointer;
+    font-family: var(--font-main);
 }
 
 .button.primary {
@@ -298,7 +314,6 @@ p {
     transform: translateY(-2px);
 }
 
-
 /* 通用 section 样式 */
 .section {
     padding: calc(var(--spacing-unit) * 8) 0; /* 调整section上下内边距 */
@@ -307,18 +322,18 @@ p {
 }
 
 .section:nth-of-type(even) {
-    background-color: var(--background-dark); /* 使用变量 */
+    background-color: var(--background-light); /* 使用变量替代硬编码的白色 */
 }
 
 /* Hero Section */
 .hero-section {
-    background-color: var(--background-dark); /* 使用变量 */
-    padding: calc(var(--spacing-unit) * 8) 0; /* 调整上下内边距 */
-    text-align: left; /* 左对齐文本 */
+    background-color: var(--background-light); /* 使用变量替代硬编码的白色 */
+    padding: calc(var(--spacing-unit) * 8) 0;
+    text-align: left;
     position: relative;
-    overflow: hidden; /* 防止图片溢出 */
-    transition: background-color 0.3s ease; /* 添加过渡效果 */
-    margin-top: 100px; /* 增加上边距，与导航栏保持更大距离 */
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+    margin-top: 100px;
 }
 
 .hero-section .container {
@@ -335,7 +350,7 @@ p {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    margin-bottom: calc(var(--spacing-unit) * 4);
+    margin-bottom: calc(var(--spacing-unit) * 2); /* Adjust margin below photo */
     transition: all 0.3s ease;
     object-fit: cover;
     transform-origin: center top;
@@ -348,12 +363,24 @@ p {
 }
 
 .hero-section h1 {
+    font-family: 'Lexend'; /* 设置为 Lexend 字体 */
+    font-weight: 700; /* Bold */
     font-size: 3em;
-    font-weight: 700;
+    line-height: 1.1;
     margin-bottom: calc(var(--spacing-unit) * 1);
     max-width: none;
     margin-left: 0;
     margin-right: 0;
+    color: var(--text-color); /* 使用CSS变量替代硬编码的黑色 */
+}
+
+.hero-section h2 {
+    font-family: 'Lexend'; /* 设置为 Lexend 字体 */
+    font-weight: 700; /* 加粗字体 */
+    font-size: 1.8em; /* Adjust size as needed */
+    color: #71717A; /* 设置文字颜色为 #71717A */
+    margin-top: calc(var(--spacing-unit) * 1);
+    margin-bottom: calc(var(--spacing-unit) * 3);
 }
 
 .hero-section p {
@@ -381,13 +408,14 @@ p {
     height: 45px;
     border-radius: 50%;
     background-color: var(--background-dark);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.5s ease;
     box-shadow: 0 2px 8px var(--shadow-color-light);
     text-decoration: none;
 }
 
 .hero-section .social-links a:hover {
-    box-shadow: inset 0 2px 8px var(--shadow-color-dark);
+    box-shadow: inset 0 2px 8px var(--shadow-color-dark); /* 修改为内凹阴影 */
+    /* 确保 border-radius 保持 50% */
 }
 
 /* 所有图标通用样式 */
@@ -463,66 +491,168 @@ p {
 /* 作品集 */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 响应式网格 */
-    gap: calc(var(--spacing-unit) * 4);
-    margin-top: calc(var(--spacing-unit) * 4); /* 调整与标题的间距 */
+    grid-template-columns: repeat(2, minmax(200px, 1fr)); /* 减小最小宽度，使卡片更紧凑 */
+    gap: calc(var(--spacing-unit) * 1); /* 进一步缩小间距 */
+    margin-top: calc(var(--spacing-unit) * 4);
+    max-width: 100%; /* 控制整体宽度，使其与父容器对齐 */
+    margin-left: 0; /* 左对齐 */
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* 小屏幕上改为单列 */
+    }
 }
 
 .portfolio-item {
-    background-color: var(--background-dark); /* 使用变量 */
-    border-radius: 12px;
+    background-color: var(--card-background); /* 使用变量替代硬编码的白色 */
+    border-radius: 10px; /* 添加圆角 */
     overflow: hidden;
-    box-shadow: 0 5px 20px var(--shadow-color-light); /* 使用变量 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    outline: 1px solid var(--border-color); /* 添加外围描边 */
+    outline-offset: 2px; /* 描边与边框的距离 */
+    transition: all 0.3s ease;
     text-align: left;
-    display: flex; /* 使用 Flexbox */
-    align-items: center; /* 垂直居中 */
-    padding: calc(var(--spacing-unit) * 3);
-    gap: calc(var(--spacing-unit) * 3); /* 图标和内容之间的间距 */
-    text-decoration: none; /* 移除链接下划线 */
-    color: inherit; /* 继承父元素颜色 */
+    display: flex;
+    flex-direction: column; /* 纵向排列内容 */
+    padding: calc(var(--spacing-unit) * 3); /* 保持顶部和左右内边距 */
+    padding-bottom: calc(var(--spacing-unit) * 5); /* 增加底部内边距，增大卡片长度 */
+    text-decoration: none;
+    color: inherit;
+    position: relative; /* 为动画效果添加相对定位 */
+    overflow: hidden; /* 确保内容不会溢出 */
+    width: 400px; /* 调整卡片宽度 */
+    height: 150px; /* 调整卡片高度，使其长宽比为2比1 */
 }
 
 .portfolio-item:hover {
-    box-shadow: 0 8px 15px var(--shadow-color-dark); /* 鼠标悬停时增加阴影 */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5), 0 12px 30px rgba(0, 0, 0, 0.15); /* 增加描边阴影效果 */
+    background-color: #F8F8F8; /* 悬停时背景变灰一些 */
+}
+
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.05); /* 调整为更自然的颜色 */
+    border-radius: 10px; /* 匹配父元素的圆角 */
+    transform: scale(0); /* 初始状态不显示 */
+    transform-origin: top left; /* 从左上角开始填充 */
+    transition: transform 0.5s ease; /* 调整动画速度 */
+    z-index: 1; /* 确保在内容下方 */
+}
+
+.portfolio-item:hover::before {
+    transform: scale(1); /* 恢复蓝色区域的面积 */
+    transition: transform 0.2s ease; /* 鼠标离开时的动画速度 */
 }
 
 .portfolio-icon {
-    flex-shrink: 0; /* 防止图标缩小 */
-    width: 50px; /* 图标容器大小 */
+    margin-bottom: calc(var(--spacing-unit) * 1); /* 减少底部间距 */
+    margin-top: calc(var(--spacing-unit) * 1); /* 向下移动图标 */
+    width: 50px;
     height: 50px;
-    background-color: var(--background-light); /* 图标背景色 */
-    border-radius: 50%; /* 圆形背景 */
+    /* background-color: #F5F5F5; */ /* 删除背景色 */
+    /* border-radius: 12px; */ /* 删除圆角 */
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease, margin-top 0.3s ease;
 }
 
-body.dark-mode .portfolio-icon {
-    background-color: #333; /* 暗色模式下的图标背景色 */
+.portfolio-item:hover .portfolio-icon {
+    transform: scale(0.9); /* 悬停时图标缩小 */
+    margin-top: calc(var(--spacing-unit) * 0.5); /* 悬停时图标向上移动少一些 */
 }
 
 .portfolio-icon i {
     width: 24px;
     height: 24px;
     stroke-width: 2;
-    color: var(--text-color); /* 图标颜色 */
+    color: #333333; /* 图标颜色不变蓝 */
 }
 
 .portfolio-content {
-    flex-grow: 1; /* 内容区域占据剩余空间 */
+    z-index: 2;
+    flex-grow: 1;
+    margin-top: 10px; /* 调整内容上边距 */
+    padding: 0; /* 移除portfolio-content的内边距，让h3和p控制间距 */
+    transition: transform 0.3s ease, margin-top 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-content {
+    transform: translateY(-10px); /* 向上移动距离缩短 */
+    margin-top: calc(var(--spacing-unit) * -2); /* 调整以适应新的移动距离 */
+    transition: transform 0.5s ease, margin-top 0.5s ease; /* 减慢动画速度 */
 }
 
 .portfolio-item h3 {
-    margin: 0 0 calc(var(--spacing-unit) * 0.5) 0; /* 调整标题下边距 */
-    font-size: 1.2em; /* 调整标题字体大小 */
+    margin-bottom: 2px; /* 减小标题下边距 */
+    font-size: 1.3em;
+    color: var(--text-color); /* 使用CSS变量替代硬编码的颜色 */
+    font-weight: 600;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-item:hover h3 {
+    color: #333333; /* 保持原色 */
 }
 
 .portfolio-item p {
-    padding: 0; /* 移除内边距 */
-    margin: 0;
-    font-size: 0.9em; /* 调整段落字体大小 */
-    color: var(--secondary-text-color); /* 使用变量 */
+    padding: 0;
+    margin-top: 2px; /* 减小段落上边距 */
+    margin-bottom: calc(var(--spacing-unit) * 0.5); /* 减小段落底部外边距 */
+    font-size: 1em;
+    color: #777777;
+    line-height: 1.5;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-item:hover p {
+    color: #777777; /* 保持原色 */
+}
+
+/* 添加 visit 文字和箭头 */
+.portfolio-item::after {
+    content: 'Visit 访问';
+    position: absolute;
+    bottom: -30px;
+    left: 20px;
+    font-size: 1.1em; /* 增大 Visit 文字大小 */
+    font-weight: 500;
+    color: #555555;
+    transition: bottom 0.3s ease;
+}
+
+.portfolio-item:hover::after {
+    bottom: 20px; /* 从底部滑入 */
+}
+
+/* 添加箭头 */
+.portfolio-item .arrow {
+    position: absolute;
+    bottom: 20px;
+    right: -30px;
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.portfolio-item:hover .arrow {
+    right: 20px; /* 从右侧滑入 */
+    opacity: 1;
+}
+
+.portfolio-item .arrow::before {
+    content: '→';
+    font-size: 1.5em; /* 增大箭头大小 */
+    color: #555555;
 }
 
 /* 移除不再需要的图片样式 */
@@ -538,44 +668,44 @@ body.dark-mode .portfolio-icon {
 /* 博文列表栏目样式 */
 .blog-posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 响应式网格 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
     gap: calc(var(--spacing-unit) * 4);
     margin-top: calc(var(--spacing-unit) * 6);
 }
 
 .blog-post-item {
-    background-color: var(--background-dark); /* 使用变量 */
-    border-radius: 20px; /* 增加圆角 */
+    background-color: var(--background-dark); /* Use variable */
+    border-radius: 20px; /* Increase rounded corners */
     overflow: hidden;
-    box-shadow: 0 5px 20px var(--shadow-color-light); /* 使用变量 */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* 添加过渡效果 */
+    box-shadow: 0 5px 20px var(--shadow-color-light); /* Use variable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition effect */
     text-align: left;
-    display: flex; /* 使用 Flexbox 确保内容垂直排列 */
+    display: flex; /* Use Flexbox to ensure vertical content arrangement */
     flex-direction: column;
-    position: relative; /* 为发布时间定位 */
-    cursor: pointer; /* 添加手型光标 */
-    text-decoration: none; /* 移除链接下划线 */
-    color: inherit; /* 继承父元素颜色 */
+    position: relative; /* For positioning publish date */
+    cursor: pointer; /* Add pointer cursor */
+    text-decoration: none; /* Remove link underline */
+    color: inherit; /* Inherit parent color */
 }
 
 .blog-post-item:hover {
-    transform: translateY(-5px); /* 减小抬升效果 */
-    box-shadow: 0 15px 40px var(--shadow-color-dark); /* 使用变量 */
+    transform: translateY(-5px); /* Reduce lift effect */
+    box-shadow: 0 15px 40px var(--shadow-color-dark); /* Use variable */
 }
 
 .blog-post-item:hover h3 {
-    color: var(--primary-color); /* 悬停时标题变蓝 */
+    color: var(--primary-color); /* Title turns blue on hover */
     transition: color 0.3s ease;
 }
 
 .blog-post-item:active {
-    transform: translateY(-2px); /* 点击时的效果 */
+    transform: translateY(-2px); /* Effect on click */
     box-shadow: 0 8px 20px var(--shadow-color-dark);
 }
 
 .blog-post-item img {
     width: 100%;
-    height: 200px; /* 调整图片高度 */
+    height: 200px; /* Adjust image height */
     object-fit: cover;
     display: block;
 }
@@ -594,14 +724,14 @@ body.dark-mode .portfolio-icon {
 .blog-post-item h3 {
     margin: calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 1);
     font-size: 1.5em;
-    min-height: 3em; /* 确保标题有最小高度，避免内容偏移 */
+    min-height: 3em; /* Ensure title has minimum height to prevent content shifting */
     transition: color 0.3s ease;
 }
 
 .blog-post-item p {
     padding: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3);
-    color: var(--secondary-text-color); /* 使用变量 */
-    flex-grow: 1; /* 让段落填充剩余空间 */
+    color: var(--secondary-text-color); /* Use variable */
+    flex-grow: 1; /* Let paragraph fill remaining space */
 }
 
 /* 移除按钮样式 */
@@ -723,7 +853,7 @@ body.dark-mode .portfolio-icon {
     background: var(--background-light);
     padding: 2px 6px;
     border-radius: 4px;
-    font-family: monospace;
+    font-family: var(--font-code);
     font-size: 0.9em;
 }
 
@@ -742,6 +872,7 @@ body.dark-mode .portfolio-icon {
     padding: calc(var(--spacing-unit)) 0 calc(var(--spacing-unit)) calc(var(--spacing-unit) * 2);
     color: var(--secondary-text-color);
     font-style: italic;
+    font-family: var(--font-quote);
 }
 
 .markdown-content img {
@@ -819,7 +950,7 @@ body.dark-mode .portfolio-icon {
     background: var(--background-light);
     padding: 2px 6px;
     border-radius: 4px;
-    font-family: monospace;
+    font-family: var(--font-code);
     font-size: 0.9em;
 }
 
@@ -838,6 +969,7 @@ body.dark-mode .portfolio-icon {
     padding: calc(var(--spacing-unit)) 0 calc(var(--spacing-unit)) calc(var(--spacing-unit) * 2);
     color: var(--secondary-text-color);
     font-style: italic;
+    font-family: var(--font-quote);
 }
 
 .blog-full-post .markdown-content img {
@@ -868,11 +1000,11 @@ body.dark-mode .portfolio-icon {
     .blog-content {
         grid-template-columns: 1fr;
     }
-    
+
     .blog-main-content {
         padding-right: 0;
     }
-    
+
     .blog-toc {
         position: static;
         margin-top: calc(var(--spacing-unit) * 4);
@@ -881,11 +1013,11 @@ body.dark-mode .portfolio-icon {
 
 /* 返回博文列表按钮 */
 .back-to-blog-list {
-    display: inline-flex; /* 让图标和文字同行 */
+    display: inline-flex; /* Let icon and text be on the same line */
     align-items: center;
     color: var(--primary-color);
     font-weight: 500;
-    margin-bottom: calc(var(--spacing-unit) * 4); /* 调整间距 */
+    margin-bottom: calc(var(--spacing-unit) * 4); /* Adjust spacing */
     transition: color 0.3s ease;
 }
 
@@ -906,25 +1038,25 @@ body.dark-mode .portfolio-icon {
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
     max-width: 500px;
-    margin: 0 auto calc(var(--spacing-unit) * 4); /* 增加下方间距 */
+    margin: 0 auto calc(var(--spacing-unit) * 4); /* Increase bottom spacing */
     text-align: left;
 }
 
 .contact-form input,
 .contact-form textarea {
     padding: calc(var(--spacing-unit) * 2);
-    border: 1px solid var(--border-color); /* 使用变量 */
+    border: 1px solid var(--border-color); /* Use variable */
     border-radius: 8px;
     font-size: 1em;
-    color: var(--text-color); /* 使用变量 */
-    background-color: var(--background-light); /* 使用变量 */
-    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
+    color: var(--text-color); /* Use variable */
+    background-color: var(--background-light); /* Use variable */
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Add transition effect */
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: var(--primary-color); /* 使用变量 */
+    border-color: var(--primary-color); /* Use variable */
 }
 
 .contact-form textarea {
@@ -933,8 +1065,8 @@ body.dark-mode .portfolio-icon {
 }
 
 .contact-form button {
-    width: auto; /* 按钮宽度自适应 */
-    align-self: flex-start; /* 左对齐 */
+    width: auto; /* Button width adapts */
+    align-self: flex-start; /* Left align */
 }
 
 /* 新增的联系信息样式 */
@@ -942,13 +1074,13 @@ body.dark-mode .portfolio-icon {
     margin-top: calc(var(--spacing-unit) * 4);
     font-size: 1.1em;
     color: var(--secondary-text-color);
-    text-align: center; /* 居中显示 */
+    text-align: center; /* Center display */
 }
 
 .contact-info p {
-    display: flex; /* 让图标和文本在一行 */
-    align-items: center; /* 垂直居中对齐 */
-    justify-content: center; /* 居中显示 */
+    display: flex; /* Let icon and text be on one line */
+    align-items: center; /* Vertically center align */
+    justify-content: center; /* Center display */
     margin-bottom: calc(var(--spacing-unit) * 1.5);
 }
 
@@ -957,35 +1089,34 @@ body.dark-mode .portfolio-icon {
     height: 20px;
     stroke-width: 2;
     margin-right: calc(var(--spacing-unit) * 1);
-    color: var(--primary-color); /* 图标颜色 */
+    color: var(--primary-color); /* Icon color */
 }
 
 .contact-info a {
-    color: var(--secondary-text-color); /* 链接默认颜色 */
+    color: var(--secondary-text-color); /* Link default color */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-info a:hover {
-    color: var(--primary-color); /* 链接悬停颜色 */
+    color: var(--primary-color); /* Link hover color */
 }
 
 .social-links {
     margin-top: calc(var(--spacing-unit) * 3);
     display: flex;
     justify-content: center;
-    gap: calc(var(--spacing-unit) * 1.5); /* 调整这里的间距 */
+    gap: calc(var(--spacing-unit) * 1.5); /* Adjust spacing here */
 }
 
 .social-links a {
     color: var(--secondary-text-color);
-    transition: color 0.3s ease, box-shadow 0.3s ease; /* 添加阴影过渡 */
+    transition: color 0.5s ease, box-shadow 0.5s ease; /* 将过渡时间从 0.3s 增加到 0.5s */
 }
 
 .social-links a:hover {
-    /* color: var(--primary-color); */ /* 现有悬停颜色，移除 */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
-    border-radius: 8px; /* 给阴影一个边界 */
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2); /* 修改为内凹阴影 */
+    border-radius: 50%; /* 修改为圆形 */
 }
 
 .social-links i {
@@ -998,68 +1129,74 @@ body.dark-mode .portfolio-icon {
 
 /* 页脚 */
 footer {
-    background-color: var(--background-dark); /* 使用变量 */
+    background-color: var(--background-light); /* 使用变量替代硬编码的白色 */
     padding: calc(var(--spacing-unit) * 4) 0;
     text-align: center;
-    color: var(--secondary-text-color); /* 使用变量 */
+    color: var(--secondary-text-color); /* Use variable */
     font-size: 0.9em;
-    border-top: 1px solid var(--border-color); /* 使用变量 */
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
+    border-top: 1px solid var(--border-color); /* Use variable */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Add transition effect */
 }
 
 /* 每日一言样式 */
 .daily-quote {
-    margin-bottom: calc(var(--spacing-unit) * 3); /* 与版权信息留出间距 */
-    font-style: italic; /* 斜体 */
-    max-width: 700px; /* 限制宽度 */
+    margin-bottom: calc(var(--spacing-unit) * 3); /* Spacing from copyright info */
+    font-style: italic; /* Italic */
+    max-width: 700px; /* Limit width */
     margin-left: auto;
     margin-right: auto;
-    padding: 0 calc(var(--spacing-unit) * 2); /* 左右内边距 */
+    padding: 0 calc(var(--spacing-unit) * 2); /* Left/right padding */
+    background-color: var(--background-light); /* 使用变量替代硬编码的白色 */
 }
 
 .daily-quote p {
-    margin-bottom: calc(var(--spacing-unit) * 1); /* 句子和作者之间的间距 */
-    color: var(--secondary-text-color); /* 文本颜色 */
+    margin-bottom: calc(var(--spacing-unit) * 1); /* Spacing between sentence and author */
+    color: var(--secondary-text-color); /* Text color */
 }
 
 .daily-quote .quote-from {
-    font-size: 0.85em; /* 作者字体小一点 */
-    opacity: 0.8; /* 稍透明 */
+    font-size: 0.85em; /* Smaller font for author */
+    opacity: 0.8; /* Slightly transparent */
+}
+
+/* 时间轴介绍文字样式 */
+.timeline-intro-text {
+    color: var(--secondary-text-color);
 }
 
 /* 回到顶部按钮 */
 .back-to-top {
     position: fixed;
-    bottom: calc(var(--spacing-unit) * 4); /* 距离底部 */
-    right: calc(var(--spacing-unit) * 4); /* 距离右侧 */
-    background-color: var(--button-back-color); /* 使用变量 */
-    color: var(--button-icon-color); /* 使用变量 */
-    border: 1px solid var(--border-color); /* 使用变量 */
-    border-radius: 50%; /* 圆形 */
+    bottom: calc(var(--spacing-unit) * 4); /* Distance from bottom */
+    right: calc(var(--spacing-unit) * 4); /* Distance from right */
+    background-color: var(--button-back-color); /* Use variable */
+    color: var(--button-icon-color); /* Use variable */
+    border: 1px solid var(--border-color); /* Use variable */
+    border-radius: 50%; /* Circular */
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 5px 15px var(--shadow-color-light); /* 使用变量 */
-    opacity: 0; /* 默认隐藏 */
-    visibility: hidden; /* 默认隐藏 */
+    box-shadow: 0 5px 15px var(--shadow-color-light); /* Use variable */
+    opacity: 0; /* Hidden by default */
+    visibility: hidden; /* Hidden by default */
     transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    z-index: 999; /* 确保在其他元素之上 */
+    z-index: 999; /* Ensure it's above other elements */
 }
 
 .back-to-top.show {
-    opacity: 1; /* 显示 */
-    visibility: visible; /* 显示 */
+    opacity: 1; /* Show */
+    visibility: visible; /* Show */
 }
 
 .back-to-top:hover {
-    background-color: var(--primary-color); /* 悬停背景色 */
-    color: #FFFFFF; /* 悬停图标颜色 */
-    border-color: var(--primary-color); /* 悬停边框颜色 */
-    box-shadow: 0 8px 20px var(--shadow-color-dark); /* 悬浮阴影 */
-    transform: translateY(-2px); /* 略微上浮 */
+    background-color: var(--primary-color); /* Hover background color */
+    color: #FFFFFF; /* Hover icon color */
+    border-color: var(--primary-color); /* Hover border color */
+    box-shadow: 0 8px 20px var(--shadow-color-dark); /* Hover shadow */
+    transform: translateY(-2px); /* Slightly float up */
 }
 
 .back-to-top i {
@@ -1067,7 +1204,6 @@ footer {
     height: 24px;
     stroke-width: 2;
 }
-
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -1092,21 +1228,21 @@ footer {
         width: 150px;
         height: 150px;
     }
-    .hero-section .icon-grid { /* 调整响应式布局 */
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 平板上改为两列或自适应 */
-        gap: calc(var(--spacing-unit) * 4); /* 调整间距 */
+    .hero-section .icon-grid { /* Adjust responsive layout */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Two columns or adaptive on tablets */
+        gap: calc(var(--spacing-unit) * 4); /* Adjust spacing */
     }
-    .hero-section .icon-item { /* 调整填充以适应更大图标 */
+    .hero-section .icon-item { /* Adjust padding to fit larger icons */
         padding: calc(var(--spacing-unit) * 2.5);
     }
     .hero-section .icon-item i {
-        width: 45px; /* 平板上图标大小 */
+        width: 45px; /* Icon size on tablets */
         height: 45px;
     }
     .hero-section .icon-item span {
-        font-size: 1em; /* 平板上文字大小 */
+        font-size: 1em; /* Text size on tablets */
     }
-    .portfolio-grid, .blog-posts-grid { /* 作品集和博文都改为单列显示 */
+    .portfolio-grid, .blog-posts-grid { /* Portfolio and blog posts both display in single column */
         grid-template-columns: 1fr;
     }
     .portfolio-item, .blog-post-item {
@@ -1116,7 +1252,7 @@ footer {
         padding: calc(var(--spacing-unit) * 4);
     }
 
-    /* 手机端调整回到顶部按钮位置 */
+    /* Mobile adjustment for back-to-top button position */
     .back-to-top {
         bottom: calc(var(--spacing-unit) * 2);
         right: calc(var(--spacing-unit) * 2);
@@ -1125,24 +1261,24 @@ footer {
     }
 
     .contact-info p {
-        flex-direction: column; /* 小屏幕下图标和文本垂直排列 */
-        align-items: center; /* 垂直居中 */
+        flex-direction: column; /* Vertical arrangement of icon and text on small screens */
+        align-items: center; /* Vertically center */
         margin-bottom: calc(var(--spacing-unit) * 2);
     }
 
     .contact-info i {
         margin-right: 0;
-        margin-bottom: calc(var(--spacing-unit) * 0.5); /* 图标下方留一点空间 */
+        margin-bottom: calc(var(--spacing-unit) * 0.5); /* A little space below the icon */
     }
 
     .blog-content {
         grid-template-columns: 1fr;
     }
-    
+
     .blog-main-content {
         padding-right: 0;
     }
-    
+
     .blog-toc {
         position: static;
         margin-top: calc(var(--spacing-unit) * 4);
@@ -1156,22 +1292,22 @@ footer {
         padding: 0 calc(var(--spacing-unit) * 2);
     }
     .hero-section .icon-grid {
-        grid-template-columns: 1fr; /* 更小屏幕下，改为单列 */
+        grid-template-columns: 1fr; /* Single column on smaller screens */
         gap: calc(var(--spacing-unit) * 3);
     }
     .hero-section .icon-item {
-        width: auto; /* 自动宽度 */
-        margin-bottom: calc(var(--spacing-unit) * 2); /* 适当减小底部间距 */
+        width: auto; /* Auto width */
+        margin-bottom: calc(var(--spacing-unit) * 2); /* Slightly reduce bottom margin */
     }
     .hero-section .icon-item:last-child {
         margin-bottom: 0;
     }
     .hero-section .icon-item i {
-        width: 40px; /* 手机上图标大小 */
+        width: 40px; /* Icon size on mobile */
         height: 40px;
     }
     .hero-section .icon-item span {
-        font-size: 0.9em; /* 手机上文字大小 */
+        font-size: 0.9em; /* Text size on mobile */
     }
 }
 
@@ -1254,164 +1390,130 @@ footer {
     }
 }
 
+/* 时间轴部分样式 */
 .timeline-section {
-    padding: 8px 0 60px 0;
-    background: #f7f8fa;
-    margin-top: 100px; /* 增加上边距，与导航栏保持更大距离 */
+    margin-top: 100px;
     transition: margin-top 0.3s ease;
-}
-.timeline-section h1 {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-.timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-top: 40px;
-    position: relative;
-    padding-left: 20px;
+    background-color: var(--background-light);
 }
 
-/* 移除贯穿整个时间轴的直线 */
-/*
+.timeline-section h1 {
+    margin-bottom: calc(var(--spacing-unit) * 4);
+    color: var(--text-color);
+}
+
+.timeline-intro-text {
+    color: var(--secondary-text-color);
+}
+
+.timeline {
+    position: relative;
+    padding-left: 60px;
+    gap: 0;
+    margin-top: 30px;
+}
+
 .timeline::before {
     content: '';
     position: absolute;
+    left: 20px;
     top: 0;
     bottom: 0;
-    left: 0px;
     width: 2px;
-    background-color: var(--primary-color);
+    border-left: 2px dotted var(--primary-color);
+    z-index: 0;
 }
-*/
 
 .timeline-item {
-    background: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 32px; /* 保留内边距 */
-    display: flex;
-    align-items: flex-start;
-    gap: 32px;
     position: relative;
-    transition: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 0;
+    margin-left: 0;
+    border-bottom: 1px solid var(--border-color);
+    gap: 20px;
+    background: transparent !important;
+    box-shadow: none !important;
+    transition: none !important;
 }
+
 .timeline-item:hover {
-    transform: none;
-    box-shadow: none;
-}
-body.dark-mode .timeline-item {
-    background: transparent;
-    color: #f5f5f7;
-    box-shadow: none;
-}
-body.dark-mode .timeline-item:hover {
-    box-shadow: none;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
-/* 添加连接下一个表情包的线段 */
-.timeline-item::after {
-    content: '';
-    position: absolute;
-    left: 0px; /* 与表情包水平位置对齐 */
-    top: calc(36px + 20px); /* 从表情包底部开始 (+ 表情包高度/2 + 一点间距) */
-    bottom: -20px; /* 延长到下一个项目的上方，需要调整 */
-    width: 2px;
-    background-color: var(--primary-color);
-    z-index: 0; /* 在表情包下方 */
-}
-
-/* 最后一个时间轴项目不需要连接线 */
-.timeline-item:last-child::after {
-    display: none;
+.timeline-item:last-child {
+    border-bottom: none;
 }
 
 .timeline-item::before {
-    content: '🤔'; /* 替换为表情包 */
+    content: '';
     position: absolute;
-    left: 0px; /* 调整表情包位置，使其与线对齐 */
-    top: 36px; /* 根据表情包大小和垂直位置调整，使其中心与线对齐 */
-    width: 40px; /* 表情包容器大小 */
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px; /* 表情包大小 */
-    background-color: var(--background-dark); /* 添加背景色以遮盖线 */
-    border: none; /* 移除边框 */
-    border-radius: 50%; /* 添加圆角背景 */
-    z-index: 1; /* 确保表情包在线的上面 */
-    transform: translateX(-50%); /* 微调位置使其居中 */
+    left: -40px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: 2px solid var(--background-light);
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+    z-index: 1;
 }
 
-body.dark-mode .timeline-item::before {
-     background-color: var(--background-light); /* 暗色模式下背景色调整 */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 25px;
+    width: 28px;
+    height: 2px;
+    background-color: var(--primary-color);
+    z-index: 1;
 }
 
-.timeline-date {
-    min-width: 120px;
-    font-weight: bold;
-    color: var(--primary-color);
+.timeline-main-content {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.timeline-main-content h3 {
+    margin: 0 0 5px 0;
     font-size: 1.1em;
-    padding-top: 16px;
-}
-.timeline-content h3 {
-    margin: 0 0 8px 0;
-}
-.timeline-content img {
-    margin-top: 12px; /* 保持一定的顶部间距 */
-    max-width: 150px; /* 缩小图片的最大宽度 */
-    height: auto; /* 保持宽高比 */
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
-    cursor: pointer;
-    /* 添加默认的随机旋转 */
-    transform: rotate(calc(var(--rotation, 0) * 1deg)); /* 添加默认值 */
-    /* 调整定位和间距实现叠放扑克牌效果 */
-    position: relative;
-    display: inline-block; /* 让图片可以并排 */
-    margin-right: -40px; /* 负外边距实现水平叠放 */
-    margin-bottom: 10px; /* 增加底部间距避免垂直重叠过于紧密 */
-    z-index: var(--z-index, 1); /* 控制叠放顺序，需要为每个图片设置不同的z-index */
-    border: 5px solid white; /* 添加白色边框 */
+    font-weight: 600;
+    color: var(--text-color);
 }
 
-/* 移除之前用于叠放的相邻图片样式 */
-.timeline-content img + img {
-    margin-top: 12px; /* 恢复顶部间距 */
+.timeline-main-content > p {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    margin: 0 0 10px 0;
+    line-height: 1.5;
 }
 
-.timeline-content img:hover {
-    transform: scale(1.12) rotate(0deg); /* 悬停时取消旋转并放大 */
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    z-index: 10; /* 悬停时提升层级 */
+.timeline-date,
+.timeline-date-right {
+    min-width: 120px;
+    text-align: right;
+    color: var(--secondary-text-color);
+    font-size: 0.85em;
+    padding-top: 2px;
+    font-weight: normal;
 }
 
-body.dark-mode .timeline-section {
-    background: #18181a;
-}
-body.dark-mode .timeline-item {
-    background: #232326;
-    color: #f5f5f7;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-}
-body.dark-mode .timeline-date {
-    color: #4da3ff;
-}
-body.dark-mode .timeline-content h3 {
-    color: #f5f5f7;
-}
-body.dark-mode .timeline-content p {
-    color: #cccccc;
-}
-body.dark-mode .timeline-content img {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-}
-body.dark-mode .timeline-section h1,
-body.dark-mode .timeline-section p {
-    color: #f5f5f7;
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .timeline-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .timeline-date-right {
+        text-align: left;
+        padding-top: 0;
+        margin-top: 5px;
+    }
 }
 
 /* Career Items */
@@ -1427,11 +1529,19 @@ body.dark-mode .timeline-section p {
     text-decoration: none;
     color: inherit;
     display: block;
+    /* 确保卡片不可点击 */
     pointer-events: none;
     border: 3px solid var(--border-color);
     border-radius: 16px;
     position: relative;
     box-shadow: 0 3px 6px var(--shadow-color-light);
+    /* 添加过渡效果 */
+    transition: box-shadow 0.5s ease;
+}
+
+.career-item-card:hover {
+    /* 鼠标悬停时添加阴影效果 */
+    box-shadow: 0 8px 20px var(--shadow-color-dark);
 }
 
 .career-meta-container {
@@ -1490,4 +1600,57 @@ body.dark-mode .timeline-section p {
     color: var(--text-color);
     opacity: 1;
     font-weight: 500;
+}
+
+/* 标题字体 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    font-weight: 600;
+}
+
+/* 正文字体 */
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 代码字体 */
+code, pre {
+    font-family: var(--font-code);
+}
+
+/* 引用文字字体 */
+blockquote {
+    font-family: var(--font-quote);
+}
+
+/* 导航栏字体 */
+.navbar a {
+    font-family: var(--font-main);
+    font-weight: 500;
+}
+
+/* 按钮字体 */
+.button {
+    font-family: var(--font-main);
+    font-weight: 600;
+}
+
+/* 博文介绍文字样式 */
+.blog-intro-text {
+    color: #6E6E73; /* 设置文字颜色 */
+}
+
+.timeline-image-row img,
+.timeline-photos img {
+    object-fit: contain;
 }
