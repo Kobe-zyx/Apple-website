@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【不吐不快】Trae与Cursor案例使用对比 - Kobe_zyx</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../blog.html">Geek</a></li>
+                        <li><a href="../timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
+        <div class="container">
+            <article class="blog-full-post active">
+                <a href="../blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <h2>【不吐不快】Trae与Cursor案例使用对比</h2>
+                        <p class="post-meta">发布日期: 2025年6月5日</p>
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/TC.png" alt="Trae与Cursor对比">
+                        <div class="markdown-content">
+                            <h2 id="intro">背景介绍</h2>
+                            <p>事情的起因是：由于我的Personal Website是前端中的原生开发，即为（HTML/CSS/JavaScript）</p>
+
+                            <h2 id="problem">问题出现</h2>
+                            <p>我在更新我的Personal Website时,发现timeline中的模态框无法显示，而我对原生开发并不熟悉，于是会使用AI协助我完成代码</p>
+
+                            <h2 id="comparison">Trae与Cursor的对比</h2>
+                            <p>这里，我要吐槽一下ByteDance的Trae，没有Cursor智能，在Cursor中，AI会帮你修改代码并自动放置在合适的位置，而Trae没有集成，导致Application会随意的将代码放置</p>
+
+                            <h2 id="debug">调试过程</h2>
+                            <p>于是，在script渲染完模态框后，HTML的摆放不正确，导致点击浏览时，HTML没有先一步预览，而JS在代码error时不会进行下一步，而是停止，导致模态框无法显示，我debug了一晚上，终于发现了问题所在</p>
+
+                            <h2 id="conclusion">总结建议</h2>
+                            <p>所有，照目前的状态来看，如果经济实力允许，建议选择cursor，我选择Trae的原因纯粹是它可以用Claude 4 Sonnet，我奉劝ByteDance早日提高Application与AI的一体化，否则，如果AI排队时间长，用户只会不增反降</p>
+
+                            <h2 id="thanks">特别鸣谢</h2>
+                            <p><strong>Google Gemini 2.5 Flash</strong></p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">背景介绍</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#problem">问题出现</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#comparison">Trae与Cursor的对比</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#debug">调试过程</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">总结建议</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#thanks">特别鸣谢</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="../blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="daily-quote">
+                <p id="quote-text"></p>
+                <p id="quote-from" class="quote-from"></p>
+            </div>
+            <p>&copy; 2025 Kobe_zyx. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="../script.js"></script>
+    <!-- 添加深浅模式切换按钮 -->
+    <button class="theme-toggle" aria-label="切换深浅模式">
+        <img src="../svg/ld/light.svg" alt="切换到浅色模式" class="light-icon">
+        <img src="../svg/ld/dark.svg" alt="切换到深色模式" class="dark-icon">
+    </button>
+</body>
+</html> 

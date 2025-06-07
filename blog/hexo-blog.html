@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hexo博客搭建指南 - Kobe_zyx</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png">
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
@@ -25,8 +27,6 @@
         </div>
     </header>
 
-    <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle dark mode"></button>
-
     <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
         <div class="container">
             <article class="blog-full-post active">
@@ -35,7 +35,7 @@
                     <div class="blog-main-content">
                         <h2>Hexo博客搭建完全指南</h2>
                         <p class="post-meta">发布日期: 2024年2月8日</p>
-                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/hexo-blog.jpg" alt="Hexo博客">
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/hexo.png" alt="Hexo博客">
                         <div class="markdown-content">
                             <h2 id="intro">引言</h2>
                             <p>Hexo是一个快速、简洁且高效的博客框架，它使用Markdown编写文章，可以生成静态网页。</p>
@@ -126,5 +126,10 @@
         // 添加滚动事件监听
         window.addEventListener('scroll', handleScroll);
     </script>
+<!-- 添加深浅模式切换按钮 -->
+<button class="theme-toggle" aria-label="切换深浅模式">
+    <img src="../svg/ld/light.svg" alt="切换到浅色模式" class="light-icon">
+    <img src="../svg/ld/dark.svg" alt="切换到深色模式" class="dark-icon">
+</button>
 </body>
 </html>

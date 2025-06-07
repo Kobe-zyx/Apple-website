@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【教程】快速制作PowerPoint - Kobe_zyx</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/%E5%A4%B4%E5%83%8F.png" alt="Logo">
+            </a>
+            <div class="nav-links-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../blog.html">Geek</a></li>
+                        <li><a href="../timeline.html">Timeline</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="blog-post-page" class="section" style="padding-top: calc(var(--spacing-unit) * 5);">
+        <div class="container">
+            <article class="blog-full-post active">
+                <a href="../blog.html" class="back-to-blog-list"><i data-feather="arrow-left"></i> 返回博文列表</a>
+                <div class="blog-content" style="display: grid; grid-template-columns: 1fr 300px; gap: 2rem;">
+                    <div class="blog-main-content">
+                        <h2>【教程】快速制作PowerPoint</h2>
+                        <p class="post-meta">发布日期: 2025年5月30日</p>
+                        <img src="https://cdn.jsdelivr.net/gh/Kobe-zyx/PicGo@main/PPT.png" alt="快速制作PowerPoint">
+                        <div class="markdown-content">
+                            <h2 id="intro">思维模式</h2>
+                            <p>你仅需要抓住内容关键及重点，剩下的全部交给AI（Artificial Intelligence）。</p>
+
+                            <h2 id="ai-choice">AI选择</h2>
+                            <p>性能等综合表现优异的AI讲给你更好的表达效果。</p>
+                            <p>推荐：<a href="https://chat.deepseek.com/" target="_blank">DeepSeek-R1</a>、<a href="https://chatgpt.com/" target="_blank">ChatGPT-Deep Research</a></p>
+
+                            <h2 id="step-1">第一步</h2>
+                            <p>来到AI官网，（以DeepSeek-R1为例），点击访问，输入Prompt，注释：最后输出为MarkDown格式。</p>
+                            <p>随后等待DeepSeek-R1生成。</p>
+
+                            <h2 id="step-2">第二步</h2>
+                            <p>打开Kimi AI官网，点击访问，选择PPT助手，将刚才DeepSeek-R1生成的Markdown格式文字复制，粘贴到对应对话框内，等待Kimi AI生成章节，选择模板，PPT随后出炉~</p>
+
+                            <h2 id="step-3">第三步</h2>
+                            <p>可以寻找优秀的AI生成图片为PPT配图，例如<a href="https://www.midjourney.com/home" target="_blank">Midjourney</a>，也可以在互联网中搜索优质图片网站，例如<a href="https://www.pinterest.com/" target="_blank">Pinterest</a>。</p>
+
+                            <h2 id="notice">声明</h2>
+                            <p>讯飞智文的效果优于Kimi AI，有条件可以使用，<a href="https://zhiwen.xfyun.cn/home" target="_blank">点击访问</a>。</p>
+
+                            <h2 id="conclusion">后记</h2>
+                            <p>在这个人人都会用AI的大环境下，是时候掌握一些实用的技巧去脱颖而出和节省时间了！</p>
+                        </div>
+                    </div>
+                    <div class="blog-toc" style="position: sticky; top: 2rem; align-self: start; background: var(--card-bg); padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <h3>目录</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 0.5rem 0;"><a href="#intro">思维模式</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#ai-choice">AI选择</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#step-1">第一步</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#step-2">第二步</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#step-3">第三步</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#notice">声明</a></li>
+                            <li style="margin: 0.5rem 0;"><a href="#conclusion">后记</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="../blog.html" class="back-to-blog-list" style="margin-top: calc(var(--spacing-unit) * 4);"><i data-feather="arrow-left"></i> 返回博文列表</a>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="daily-quote">
+                <p id="quote-text"></p>
+                <p id="quote-from" class="quote-from"></p>
+            </div>
+            <p>&copy; 2025 Kobe_zyx. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
+        <i data-feather="arrow-up"></i>
+    </button>
+
+    <script>
+        feather.replace();
+    </script>
+    <script src="../script.js"></script>
+<!-- 添加深浅模式切换按钮 -->
+<button class="theme-toggle" aria-label="切换深浅模式">
+    <img src="../svg/ld/light.svg" alt="切换到浅色模式" class="light-icon">
+    <img src="../svg/ld/dark.svg" alt="切换到深色模式" class="dark-icon">
+</button>
+</body>
+</html> 
