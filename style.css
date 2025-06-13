@@ -50,6 +50,7 @@
     font-display: swap;
 }
 
+
 :root {
     /* 浅色模式变量 */
     --background-light: #ffffff;
@@ -202,6 +203,8 @@ h3 { font-size: 1.8em; }
 
 p {
     margin-bottom: calc(var(--spacing-unit) * 2);
+    margin-left: 0; /* 明确移除默认左边距 */
+    padding-left: 0; /* 明确移除默认左内边距 */
 }
 
 /* 导航栏 */
@@ -364,8 +367,8 @@ p {
 
 .hero-section h1 {
     font-family: 'Lexend'; /* 设置为 Lexend 字体 */
-    font-weight: 700; /* Bold */
-    font-size: 3em;
+    font-weight: 625; /* Bold */
+    font-size: 3 em;
     line-height: 1.1;
     margin-bottom: calc(var(--spacing-unit) * 1);
     max-width: none;
@@ -376,8 +379,8 @@ p {
 
 .hero-section h2 {
     font-family: 'Lexend'; /* 设置为 Lexend 字体 */
-    font-weight: 700; /* 加粗字体 */
-    font-size: 1.8em; /* Adjust size as needed */
+    font-weight: 395; /* 加粗字体 */
+    font-size: 2 em; /* Adjust size as needed */
     color: #71717A; /* 设置文字颜色为 #71717A */
     margin-top: calc(var(--spacing-unit) * 1);
     margin-bottom: calc(var(--spacing-unit) * 3);
@@ -1138,25 +1141,34 @@ footer {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Add transition effect */
 }
 
+footer .container {
+    max-width: 1000px; /* 控制内容宽度 */
+    margin: 0 auto;
+    padding: 0 24px; /* 左右内边距，确保与主内容区一致 */
+    text-align: left; /* 确保内容左对齐 */
+}
+
+footer .container > p {
+    text-align: center;
+}
+
 /* 每日一言样式 */
 .daily-quote {
-    margin-bottom: calc(var(--spacing-unit) * 3); /* Spacing from copyright info */
-    font-style: italic; /* Italic */
-    max-width: 700px; /* Limit width */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 calc(var(--spacing-unit) * 2); /* Left/right padding */
-    background-color: var(--background-light); /* 使用变量替代硬编码的白色 */
+    text-align: center; /* 居中显示 */
+    margin-top: calc(var(--spacing-unit) * 4); /* Ensure enough space from content above */
+    margin-bottom: calc(var(--spacing-unit) * 2); /* Space before copyright */
+    font-style: italic;
+    color: var(--secondary-text-color);
 }
 
 .daily-quote p {
-    margin-bottom: calc(var(--spacing-unit) * 1); /* Spacing between sentence and author */
-    color: var(--secondary-text-color); /* Text color */
+    font-size: 0.9em;
+    margin-bottom: calc(var(--spacing-unit) * 1);
 }
 
 .daily-quote .quote-from {
-    font-size: 0.85em; /* Smaller font for author */
-    opacity: 0.8; /* Slightly transparent */
+    font-size: 0.8em;
+    margin-top: calc(var(--spacing-unit) * 0.5);
 }
 
 /* 时间轴介绍文字样式 */
@@ -1529,19 +1541,17 @@ footer {
     text-decoration: none;
     color: inherit;
     display: block;
-    /* 确保卡片不可点击 */
-    pointer-events: none;
     border: 3px solid var(--border-color);
     border-radius: 16px;
     position: relative;
-    box-shadow: 0 3px 6px var(--shadow-color-light);
-    /* 添加过渡效果 */
-    transition: box-shadow 0.5s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 默认深色阴影 */
+    transition: box-shadow 0.5s ease; /* 只过渡阴影 */
+    pointer-events: none; /* 确保卡片不可点击 */
 }
 
 .career-item-card:hover {
-    /* 鼠标悬停时添加阴影效果 */
-    box-shadow: 0 8px 20px var(--shadow-color-dark);
+    box-shadow: 0 0 15px rgba(128, 128, 128, 0.6); /* 悬停时显示灰色阴影 */
+    transform: none; /* 移除悬停时的缩放和移动效果 */
 }
 
 .career-meta-container {
@@ -1654,3 +1664,174 @@ blockquote {
 .timeline-photos img {
     object-fit: contain;
 }
+
+/* 底部导航栏样式 */
+.bottom-nav {
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color); /* 重新添加顶部边框 */
+    border-bottom: 1px solid var(--border-color); /* 添加底部边框 */
+    padding: 0.25rem 0; /* 垂直内边距 */
+    position: relative;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+    max-width: 1100px; /* 增加整体宽度 */
+    margin: 0 auto; /* 居中 */
+}
+
+.bottom-nav .container {
+    display: flex;
+    justify-content: flex-start; /* 导航链接左对齐 */
+    max-width: 1000px; /* 控制内部内容宽度与主内容区一致 */
+    margin: 0 auto; /* 使其在 bottom-nav 内部居中 */
+    padding: 0 calc(var(--spacing-unit) * 4); /* 调整内边距以与主内容区容器文本对齐 */
+}
+
+.bottom-nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0; /* 移除 ul 上的所有 padding */
+    gap: 1.5rem;
+}
+
+.bottom-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.2rem; /* 字体变大 */
+    transition: color 0.3s ease;
+    opacity: 0.8;
+}
+
+.bottom-nav a:hover {
+    color: var(--accent-color);
+    opacity: 1;
+}
+
+/* 确保底部导航栏在移动设备上也能正常显示 */
+@media (max-width: 768px) {
+    .bottom-nav ul {
+        gap: 1rem;
+    }
+    
+    .bottom-nav a {
+        font-size: 1.1rem; /* 调整移动端字体大小 */
+    }
+}
+
+/* Tech Stack Table Styles */
+.tech-stack-table {
+    background-color: var(--card-background);
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 恢复默认阴影 */
+    padding: calc(var(--spacing-unit) * 4);
+    margin-top: calc(var(--spacing-unit) * 4);
+    transition: box-shadow 0.3s ease; /* 确保过渡效果存在 */
+    position: relative; /* 为伪元素定位 */
+}
+
+.tech-stack-table::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background-color: transparent;
+    border-radius: 16px;
+    box-shadow: none; /* 默认无阴影 */
+    transition: box-shadow 0.3s ease; /* 为伪元素的阴影添加过渡效果 */
+}
+
+.tech-stack-table:hover::before {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* 悬停时伪元素显示阴影 */
+}
+
+.tech-stack-table:hover {
+    background-color: var(--card-background); /* 确保背景颜色不变，移除诊断性颜色 */
+}
+
+.tech-stack-table table {
+    width: 100%;
+    border-collapse: collapse;
+    pointer-events: none; /* 将 pointer-events: none; 应用到表格上 */
+}
+
+.tech-stack-table td {
+    padding: calc(var(--spacing-unit) * 2) 0;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.tech-stack-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tech-stack-table td:first-child {
+    color: var(--secondary-text-color);
+    width: 30%; /* Adjust as needed */
+}
+
+.tech-stack-table td:last-child {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Footer Links Styles (for stack.html) */
+.footer-links {
+    margin: 0;
+    padding: 0; /* 移除所有内边距 */
+    margin-bottom: calc(var(--spacing-unit) * 3); /* Add some space below the links */
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9em;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    margin-right: calc(var(--spacing-unit) * 2); /* 添加右外边距控制间距 */
+}
+
+.footer-links a:last-child {
+    margin-right: 0; /* 最后一个链接不需要右外边距 */
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+/* Career Card Styles */
+.career-card {
+    background-color: var(--card-background);
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 恢复默认阴影 */
+    padding: calc(var(--spacing-unit) * 4);
+    margin-top: calc(var(--spacing-unit) * 4);
+    transition: box-shadow 0.3s ease; /* 确保过渡效果存在 */
+    position: relative; /* 为伪元素定位 */
+}
+
+.career-card::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background-color: transparent;
+    border-radius: 16px;
+    box-shadow: none; /* 默认无阴影 */
+    transition: box-shadow 0.3s ease; /* 为伪元素的阴影添加过渡效果 */
+}
+
+.career-card:hover::before {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* 悬停时伪元素显示阴影 */
+}
+
+.career-card:hover {
+    background-color: var(--card-background); /* 确保背景颜色不变 */
+}
+
+
